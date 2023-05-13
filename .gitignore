@@ -1,0 +1,36 @@
+# Xcode
+.DS_Store
+build/
+DerivedData/
+xcuserdata/
+
+# Swift Package Manager
+.build/
+
+# macOS
+.DS_Store
+
+# Exclude the compiled executable
+AppName
+
+# Exclude any generated files
+*.moved-aside
+*.xccheckout
+*.xcworkspace
+*.xcodeproj/project.xcworkspace
+
+# Exclude Pods directory
+Pods/
+
+# Exclude Xcode project metadata
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+
+# Exclude user-specific Xcode settings
+*.xcuserdatad
+
+# Exclude debugging logs
+*.swiftpm/

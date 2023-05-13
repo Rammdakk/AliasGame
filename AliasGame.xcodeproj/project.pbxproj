@@ -7,18 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */; };
 		A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB072A0F923000D1621E /* AliasGameApp.swift */; };
 		A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB092A0F923000D1621E /* ContentView.swift */; };
 		A8A5BB0C2A0F923200D1621E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0B2A0F923200D1621E /* Assets.xcassets */; };
 		A8A5BB0F2A0F923200D1621E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0E2A0F923200D1621E /* Preview Assets.xcassets */; };
+		A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB152A0F96B800D1621E /* AuthScreen.swift */; };
+		A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB172A0FA53900D1621E /* RegisterResponse.swift */; };
+		A8A5BB1A2A0FA56D00D1621E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB192A0FA56D00D1621E /* AuthViewModel.swift */; };
+		A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */; };
+		A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */; };
+		A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLinks.swift; sourceTree = "<group>"; };
 		A8A5BB042A0F923000D1621E /* AliasGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AliasGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8A5BB072A0F923000D1621E /* AliasGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasGameApp.swift; sourceTree = "<group>"; };
 		A8A5BB092A0F923000D1621E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A8A5BB0B2A0F923200D1621E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A8A5BB0E2A0F923200D1621E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A8A5BB152A0F96B800D1621E /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
+		A8A5BB172A0FA53900D1621E /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
+		A8A5BB192A0FA56D00D1621E /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +46,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A848ADB42A0FADF700A081D4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */,
+				A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		A8A5BAFB2A0F923000D1621E = {
 			isa = PBXGroup;
 			children = (
@@ -51,10 +74,13 @@
 		A8A5BB062A0F923000D1621E /* AliasGame */ = {
 			isa = PBXGroup;
 			children = (
+				A848ADB42A0FADF700A081D4 /* Utils */,
+				A8A5BB212A0FAC8800D1621E /* Auth */,
 				A8A5BB072A0F923000D1621E /* AliasGameApp.swift */,
 				A8A5BB092A0F923000D1621E /* ContentView.swift */,
 				A8A5BB0B2A0F923200D1621E /* Assets.xcassets */,
 				A8A5BB0D2A0F923200D1621E /* Preview Content */,
+				A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */,
 			);
 			path = AliasGame;
 			sourceTree = "<group>";
@@ -65,6 +91,17 @@
 				A8A5BB0E2A0F923200D1621E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A8A5BB212A0FAC8800D1621E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A8A5BB152A0F96B800D1621E /* AuthScreen.swift */,
+				A8A5BB172A0FA53900D1621E /* RegisterResponse.swift */,
+				A8A5BB192A0FA56D00D1621E /* AuthViewModel.swift */,
+				A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +174,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */,
+				A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */,
+				A8A5BB1A2A0FA56D00D1621E /* AuthViewModel.swift in Sources */,
 				A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */,
+				A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */,
+				A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */,
+				A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */,
 				A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */,
+				A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

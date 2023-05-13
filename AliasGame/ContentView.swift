@@ -8,19 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var navigationState: NavigationState = .Auth
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            
+            switch navigationState {
+                
+            case .Auth:
+                AuthScreen(navigationState: $navigationState)
+                
+            case .Main:
+                MainScreen(navigationState: $navigationState)
+//
+//            case .Game:
+//                GameScreen(navigationState: $navigationState)
+
+            }
         }
-        .padding()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+enum NavigationState: Hashable {
+    
+    case Auth
+
+    case Main
+//
+//    case GameScreen
 }
