@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var navigationState: NavigationState = .Auth
+    @State private var navigationState: NavigationState = .Main
     
     var body: some View {
         ZStack {
@@ -21,6 +21,12 @@ struct ContentView: View {
                 
             case .Main:
                 MainScreen(navigationState: $navigationState)
+                
+            case .RoomCreation:
+                RoomCreationScreen(navigationState: $navigationState)
+                
+            case .Rooms:
+                RoomsScreen(navigationState: $navigationState)
 //
 //            case .Game:
 //                GameScreen(navigationState: $navigationState)
@@ -35,6 +41,10 @@ enum NavigationState: Hashable {
     case Auth
 
     case Main
+    
+    case RoomCreation
+    
+    case Rooms
 //
 //    case GameScreen
 }
