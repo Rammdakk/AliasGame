@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var navigationState: NavigationState = .Main
+    @State private var navigationState: NavigationState = .Auth
     
     var body: some View {
         ZStack {
