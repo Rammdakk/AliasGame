@@ -3,12 +3,15 @@ import SwiftUI
 struct AuthScreen: View {
     @StateObject private var viewModel = AuthViewModel()
     @Binding var navigationState: NavigationState
+    @Binding var errorState: ErrorState
     @State private var email = ""
     @State private var password = ""
     @State private var username = ""
     
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
+            
             if viewModel.showLogin {
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -80,12 +83,18 @@ struct AuthScreen: View {
                         .cornerRadius(10)
                 }
             }
+            Spacer()
         }
-        .padding().onReceive(viewModel.$isSuccesAuth) {
+        .padding().overlay(ErrorView(errorState: $errorState))
+        .onReceive(viewModel.$isSuccesAuth) {
             isSucces in
             if isSucces == true {
                 print("Auth finished")
                 navigationState = .Main
+            }
+        }.onReceive(viewModel.$errorState) { newState in
+            withAnimation{
+                errorState = newState
             }
         }
     }
@@ -93,7 +102,7 @@ struct AuthScreen: View {
 
 struct AuthScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AuthScreen(navigationState: .constant(.Auth))
+        AuthScreen(navigationState: .constant(.Auth), errorState: .constant(.Succes(message: "gvdeqfv whfbo wihfgi wufihgv")))
     }
 }
 

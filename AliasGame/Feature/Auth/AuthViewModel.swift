@@ -10,9 +10,11 @@ import Foundation
 
 
 class AuthViewModel: ObservableObject {
+    private let succesLoginMessage = "Вы успешно авторизовались"
     @Published var showLogin = false
     @Published var showRegister = false
     @Published var isSuccesAuth = false
+    @Published var errorState: ErrorState = .None
     
     func login(email: String, password: String) {
         guard let url = URL(string: UrlLinks.LOGIN) else {
@@ -28,9 +30,11 @@ class AuthViewModel: ObservableObject {
                        print("Value: \(loginResponse.value)")
                        print("ID: \(loginResponse.id)")
                        print("User ID: \(loginResponse.user.id)")
+                       self.errorState = .Succes(message: self.succesLoginMessage)
                        self.isSuccesAuth = true
                    } catch {
                        print("Error decoding login response: \(error)")
+                       self.errorState = .Error(message: error.localizedDescription)
                    }
                }
     }
@@ -53,6 +57,7 @@ class AuthViewModel: ObservableObject {
                 self.login(email: email, password: password)
             } catch {
                 print("Error decoding register response: \(error)")
+                self.errorState = .Error(message: error.localizedDescription)
             }
         }
     }
@@ -67,6 +72,7 @@ class AuthViewModel: ObservableObject {
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
+                    self.errorState = .Error(message: error.localizedDescription)
                     print("Error: \(error)")
                     return
                 }
