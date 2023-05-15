@@ -63,16 +63,19 @@ struct AuthScreen: View {
                         .cornerRadius(10)
                 }
             } else {
-                Button(action: {
-                    viewModel.showLogin = true
-                }) {
-                    Text("Login")
-                        .frame(width: 200, height: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        viewModel.showLogin = true
+                    }) {
+                        Text("Login")
+                            .frame(width: 200, height: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    Spacer()
                 }
-                
                 Button(action: {
                     viewModel.showRegister = true
                 }) {

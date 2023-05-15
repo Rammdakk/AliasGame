@@ -82,7 +82,8 @@
 		A8A5BB062A0F923000D1621E /* AliasGame */ = {
 			isa = PBXGroup;
 			children = (
-				A8D585432A10DF3E0078A0D7 /* Feature */,
+				A8D585442A10DF540078A0D7 /* Error */,
+				A8A5BB212A0FAC8800D1621E /* Auth */,
 				A8D5853D2A10DB980078A0D7 /* Data */,
 				A848ADB42A0FADF700A081D4 /* Utils */,
 				A8A5BB072A0F923000D1621E /* AliasGameApp.swift */,
@@ -128,15 +129,6 @@
 				A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */,
 			);
 			path = KeyChain;
-			sourceTree = "<group>";
-		};
-		A8D585432A10DF3E0078A0D7 /* Feature */ = {
-			isa = PBXGroup;
-			children = (
-				A8D585442A10DF540078A0D7 /* Error */,
-				A8A5BB212A0FAC8800D1621E /* Auth */,
-			);
-			path = Feature;
 			sourceTree = "<group>";
 		};
 		A8D585442A10DF540078A0D7 /* Error */ = {
