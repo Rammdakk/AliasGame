@@ -22,6 +22,12 @@ struct ContentView: View {
                 
             case .Main:
                 MainScreen(navigationState: $navigationState)
+                
+            case .RoomCreation:
+                RoomCreationScreen(navigationState: $navigationState)
+                
+            case .Rooms:
+                RoomsScreen(navigationState: $navigationState)
 //
 //            case .Game:
 //                GameScreen(navigationState: $navigationState)
@@ -38,6 +44,10 @@ enum NavigationState: Hashable {
     case Auth
 
     case Main
+    
+    case RoomCreation
+    
+    case Rooms
 //
 //    case GameScreen
 }

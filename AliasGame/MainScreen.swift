@@ -11,7 +11,52 @@ struct MainScreen: View {
     @Binding var navigationState: NavigationState
     
     var body: some View {
-        EmptyView()
+        ZStack {
+            Color.red.ignoresSafeArea()
+            buttons
+        }
     }
+    
+    var buttons: some View {
+        VStack(spacing: 10) {
+            button(text: "Create room", action: {navigationState = .RoomCreation})
+            button(text: "Join room", action: {navigationState = .Rooms})
+            
+        }
+    }
+    
+    private func button(text: String, action: @escaping () -> Void) -> some View {
+        return Button(action: action){
+            HStack(alignment: .center, spacing: 10) {
+                Text(text)
+                    .font(.system(size: 25, weight: .bold))
+                
+            }.frame(width: 180,height: 80)
+                .background(.white)
+                .cornerRadius(20)
+                .foregroundColor(.black)
+        }
+        .buttonStyle(ScaleButtonStyle())
+    }
+    
+
+    
+}
+
+public struct ScaleButtonStyle: ButtonStyle {
+    
+    public init(scaleEffect: CGFloat = 0.90, duration: Double = 0.2) {
+        self.scaleEffect = scaleEffect
+        self.duration = duration
+    }
+    
+    public func makeBody(configuration: Self.Configuration) -> some View {
+        return configuration.label
+            .scaleEffect(configuration.isPressed ? scaleEffect : 1)
+            .animation(.easeInOut(duration: duration), value: configuration.isPressed)
+    }
+    
+    private let scaleEffect: CGFloat
+    private let duration: Double
 }
 
