@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainScreen: View {
     @Binding var navigationState: NavigationState
+    @Binding var errorState: ErrorState
     
     var body: some View {
         ZStack {

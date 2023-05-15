@@ -13,7 +13,10 @@ struct RoomModel: Codable {
 }
 
 struct RoomsScreen: View {
+
     @Binding var navigationState: NavigationState
+    @Binding var errorState: ErrorState
+    
     let roomsMock = [RoomModel(name: "first"),
                  RoomModel(name: "second"),
                  RoomModel(name: "third"),
@@ -75,6 +78,6 @@ struct RoomsScreen: View {
 
 struct RoomsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RoomsScreen(navigationState: .constant(.Rooms))
+        RoomsScreen(navigationState: .constant(.Rooms), errorState: .constant(.None))
     }
 }

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct RoomCreationScreen: View {
+
     @Binding var navigationState: NavigationState
+    @Binding var errorState: ErrorState
+    
     @State private var name: String = ""
     @State private var code: String = ""
     @State private var isPrivate = false
@@ -97,6 +100,6 @@ struct RoomCreationScreen: View {
 
 struct RoomCreationScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RoomCreationScreen(navigationState: .constant(.RoomCreation))
+        RoomCreationScreen(navigationState: .constant(.RoomCreation), errorState: .constant(.None))
     }
 }

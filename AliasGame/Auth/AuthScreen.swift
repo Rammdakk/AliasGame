@@ -3,6 +3,7 @@ import SwiftUI
 struct AuthScreen: View {
     @StateObject private var viewModel = AuthViewModel()
     @Binding var navigationState: NavigationState
+    @Binding var errorState: ErrorState
     @State private var email = ""
     @State private var password = ""
     @State private var username = ""
@@ -118,7 +119,7 @@ struct AuthScreen: View {
 
 struct AuthScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AuthScreen(navigationState: .constant(.Auth), errorState: .constant(.Succes(message: "gvdeqfv whfbo wihfgi wufihgv")))
+        AuthScreen(navigationState: .constant(.Auth), errorState: .constant(.Succes(message: "Test")))
     }
 }
 

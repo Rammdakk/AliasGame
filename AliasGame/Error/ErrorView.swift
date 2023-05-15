@@ -32,7 +32,7 @@ struct ErrorView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 15)
-                    .background(.red)
+                    .background(.black)
                     .cornerRadius(15)
                     .padding(.horizontal, 10).animation(.spring(dampingFraction: 0.5), value: 1)
             case .None:
