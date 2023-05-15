@@ -3,6 +3,7 @@ import SwiftUI
 struct AuthScreen: View {
     @StateObject private var viewModel = AuthViewModel()
     @Binding var navigationState: NavigationState
+    @Binding var errorState: ErrorState
     @State private var email = ""
     @State private var password = ""
     @State private var username = ""
@@ -14,10 +15,10 @@ struct AuthScreen: View {
                 if viewModel.showLogin {
                     TextField("Email", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     SecureField("Password", text: $password)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     Button(action: {
                         viewModel.login(email: email, password: password)
                     }) {
@@ -33,17 +34,17 @@ struct AuthScreen: View {
                             )
                     }
                 }
-                
+
                 if viewModel.showRegister {
                     TextField("Email", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     SecureField("Password", text: $password)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     TextField("Username", text: $username)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     Button(action: {
                         viewModel.register(email: email, password: password, username: username)
                     }) {
@@ -59,7 +60,7 @@ struct AuthScreen: View {
                             )
                     }
                 }
-                
+
                 if viewModel.showLogin || viewModel.showRegister {
                     Button(action: {
                         viewModel.showLogin = false
@@ -83,7 +84,7 @@ struct AuthScreen: View {
                             .foregroundColor(.red)
                             .cornerRadius(10)
                     }
-                    
+
                     Button(action: {
                         viewModel.showRegister = true
                     }) {
@@ -100,7 +101,7 @@ struct AuthScreen: View {
                     }
                 }
             }
-            
+
             .padding().onReceive(viewModel.$isSuccesAuth) {
                 isSucces in
                 if isSucces == true {
@@ -108,13 +109,17 @@ struct AuthScreen: View {
                     navigationState = .Main
                 }
             }
+        }.onReceive(viewModel.$errorState) { newState in
+            withAnimation{
+                errorState = newState
+            }
         }
     }
 }
 
 struct AuthScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AuthScreen(navigationState: .constant(.Auth))
+        AuthScreen(navigationState: .constant(.Auth), errorState: .constant(.Succes(message: "Test")))
     }
 }
 

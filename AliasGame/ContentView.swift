@@ -10,29 +10,32 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var navigationState: NavigationState = .Auth
+    @State private var errorState: ErrorState = .None
     
     var body: some View {
-        ZStack {
+        VStack {
             
             switch navigationState {
                 
             case .Auth:
-                AuthScreen(navigationState: $navigationState)
+                AuthScreen(navigationState: $navigationState, errorState: $errorState)
                 
             case .Main:
-                MainScreen(navigationState: $navigationState)
+                MainScreen(navigationState: $navigationState, errorState: $errorState)
                 
             case .RoomCreation:
-                RoomCreationScreen(navigationState: $navigationState)
+                RoomCreationScreen(navigationState: $navigationState, errorState: $errorState)
                 
             case .Rooms:
-                RoomsScreen(navigationState: $navigationState)
+                RoomsScreen(navigationState: $navigationState, errorState: $errorState)
 //
 //            case .Game:
 //                GameScreen(navigationState: $navigationState)
 
             }
-        }
+        }.overlay (
+            ErrorView(errorState: $errorState)
+        )
     }
 }
 
