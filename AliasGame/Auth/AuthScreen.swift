@@ -8,6 +8,8 @@ struct AuthScreen: View {
     @State private var password = ""
     @State private var username = ""
     
+    @State private var isPasswordVisible = false
+    
     var body: some View {
         ZStack{
             Color.red.ignoresSafeArea()
@@ -15,10 +17,20 @@ struct AuthScreen: View {
                 if viewModel.showLogin {
                     TextField("Email", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-
+                        PasswordTextField("Password", text: $password, isSecure: !isPasswordVisible)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .overlay(
+                                HStack{
+                                    Spacer()
+                                    Button(action: {
+                                        isPasswordVisible.toggle()
+                                    }) {
+                                        Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .padding(.trailing, 8)
+                                }
+                            )
                     Button(action: {
                         viewModel.login(email: email, password: password)
                     }) {
@@ -39,8 +51,20 @@ struct AuthScreen: View {
                     TextField("Email", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
 
-                    SecureField("Password", text: $password)
+                    PasswordTextField("Password", text: $password, isSecure: !isPasswordVisible)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .overlay(
+                            HStack{
+                                Spacer()
+                                Button(action: {
+                                    isPasswordVisible.toggle()
+                                }) {
+                                    Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding(.trailing, 8)
+                            }
+                        )
 
                     TextField("Username", text: $username)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -110,6 +134,11 @@ struct AuthScreen: View {
                 }
             }
         }.onReceive(viewModel.$errorState) { newState in
+            if case .Succes(_) = errorState {
+                if case .None = newState {
+                    return
+                }
+            }
             withAnimation{
                 errorState = newState
             }
@@ -123,3 +152,26 @@ struct AuthScreen_Previews: PreviewProvider {
     }
 }
 
+
+struct PasswordTextField: View {
+    private var title: String
+    @Binding private var text: String
+    private var isSecure: Bool
+    
+    init(_ title: String, text: Binding<String>, isSecure: Bool) {
+        self.title = title
+        self._text = text
+        self.isSecure = isSecure
+    }
+    
+    var body: some View {
+        Group {
+            if isSecure {
+                SecureField(title, text: $text)
+            } else {
+                TextField(title, text: $text)
+            }
+        }
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+    }
+}

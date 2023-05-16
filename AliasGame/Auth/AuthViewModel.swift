@@ -10,7 +10,14 @@ import Foundation
 
 
 class AuthViewModel: ObservableObject {
-    private let succesLoginMessage = "Вы успешно авторизовались"
+    
+    init() {
+        guard let acc = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self) else {
+            return
+        }
+        isSuccesAuth = true
+    }
+    private let succesLoginMessage = "You have successfully logged in"
     @Published var showLogin = false
     @Published var showRegister = false
     @Published var isSuccesAuth = false
@@ -30,6 +37,7 @@ class AuthViewModel: ObservableObject {
                        print("Value: \(loginResponse.value)")
                        print("ID: \(loginResponse.id)")
                        print("User ID: \(loginResponse.user.id)")
+                       try KeychainHelper.shared.save(loginResponse, service: userBearerTokenService, account: account)
                        self.errorState = .Succes(message: self.succesLoginMessage)
                        self.isSuccesAuth = true
                    } catch {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */; };
+		A87C97D12A13D77F00890735 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D02A13D77F00890735 /* NetworkManager.swift */; };
+		A87C97D62A13EAB700890735 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */; };
 		A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB072A0F923000D1621E /* AliasGameApp.swift */; };
 		A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB092A0F923000D1621E /* ContentView.swift */; };
 		A8A5BB0C2A0F923200D1621E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0B2A0F923200D1621E /* Assets.xcassets */; };
@@ -18,7 +20,7 @@
 		A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */; };
 		A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */; };
 		A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */; };
-		A8D585402A10DBB90078A0D7 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D5853F2A10DBB90078A0D7 /* ApiKey.swift */; };
+		A8D585402A10DBB90078A0D7 /* BearerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */; };
 		A8D585422A10DBC40078A0D7 /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */; };
 		A8D585462A10DF870078A0D7 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585452A10DF870078A0D7 /* ErrorView.swift */; };
 		A8D585482A10DF970078A0D7 /* ErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585472A10DF970078A0D7 /* ErrorState.swift */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLinks.swift; sourceTree = "<group>"; };
+		A87C97D02A13D77F00890735 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		A8A5BB042A0F923000D1621E /* AliasGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AliasGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8A5BB072A0F923000D1621E /* AliasGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasGameApp.swift; sourceTree = "<group>"; };
 		A8A5BB092A0F923000D1621E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,7 +43,7 @@
 		A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
-		A8D5853F2A10DBB90078A0D7 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
+		A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerToken.swift; sourceTree = "<group>"; };
 		A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 		A8D585452A10DF870078A0D7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A8D585472A10DF970078A0D7 /* ErrorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorState.swift; sourceTree = "<group>"; };
@@ -67,6 +71,50 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		A87C97CE2A13D75100890735 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A8D585442A10DF540078A0D7 /* Error */,
+				A87C97CF2A13D76A00890735 /* Network */,
+				A848ADB42A0FADF700A081D4 /* Utils */,
+				A8D5853D2A10DB980078A0D7 /* Data */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A87C97CF2A13D76A00890735 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A87C97D02A13D77F00890735 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A87C97D22A13E69700890735 /* ListOfRooms */ = {
+			isa = PBXGroup;
+			children = (
+				E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */,
+			);
+			path = ListOfRooms;
+			sourceTree = "<group>";
+		};
+		A87C97D32A13E6B300890735 /* RoomCreation */ = {
+			isa = PBXGroup;
+			children = (
+				E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */,
+			);
+			path = RoomCreation;
+			sourceTree = "<group>";
+		};
+		A87C97D42A13E6E800890735 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */,
+				A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
 		A8A5BAFB2A0F923000D1621E = {
 			isa = PBXGroup;
 			children = (
@@ -86,16 +134,14 @@
 		A8A5BB062A0F923000D1621E /* AliasGame */ = {
 			isa = PBXGroup;
 			children = (
-				A8D585442A10DF540078A0D7 /* Error */,
+				A87C97D42A13E6E800890735 /* MainScreen */,
+				A87C97CE2A13D75100890735 /* Common */,
 				E32B2FC92A11734800B163AD /* Rooms */,
 				A8A5BB212A0FAC8800D1621E /* Auth */,
-				A8D5853D2A10DB980078A0D7 /* Data */,
-				A848ADB42A0FADF700A081D4 /* Utils */,
 				A8A5BB072A0F923000D1621E /* AliasGameApp.swift */,
 				A8A5BB092A0F923000D1621E /* ContentView.swift */,
 				A8A5BB0B2A0F923200D1621E /* Assets.xcassets */,
 				A8A5BB0D2A0F923200D1621E /* Preview Content */,
-				A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */,
 			);
 			path = AliasGame;
 			sourceTree = "<group>";
@@ -130,7 +176,7 @@
 		A8D5853E2A10DBA30078A0D7 /* KeyChain */ = {
 			isa = PBXGroup;
 			children = (
-				A8D5853F2A10DBB90078A0D7 /* ApiKey.swift */,
+				A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */,
 				A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */,
 			);
 			path = KeyChain;
@@ -148,8 +194,8 @@
 		E32B2FC92A11734800B163AD /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
-				E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */,
-				E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */,
+				A87C97D32A13E6B300890735 /* RoomCreation */,
+				A87C97D22A13E69700890735 /* ListOfRooms */,
 			);
 			path = Rooms;
 			sourceTree = "<group>";
@@ -224,16 +270,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8D585402A10DBB90078A0D7 /* ApiKey.swift in Sources */,
+				A8D585402A10DBB90078A0D7 /* BearerToken.swift in Sources */,
 				A8D585482A10DF970078A0D7 /* ErrorState.swift in Sources */,
 				A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */,
 				A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */,
+				A87C97D12A13D77F00890735 /* NetworkManager.swift in Sources */,
 				E32B2FCB2A11735E00B163AD /* RoomsScreen.swift in Sources */,
 				A8A5BB1A2A0FA56D00D1621E /* AuthViewModel.swift in Sources */,
 				E32B2FCD2A11736C00B163AD /* RoomCreationScreen.swift in Sources */,
 				A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */,
 				A8D585422A10DBC40078A0D7 /* KeyChainHelper.swift in Sources */,
 				A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */,
+				A87C97D62A13EAB700890735 /* MainScreenViewModel.swift in Sources */,
 				A8D585462A10DF870078A0D7 /* ErrorView.swift in Sources */,
 				A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */,
 				A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */,

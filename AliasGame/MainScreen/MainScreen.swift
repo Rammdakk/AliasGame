@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainScreen: View {
+    
+    @StateObject private var viewModel = MainScreenViewModel()
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
     
@@ -15,14 +17,38 @@ struct MainScreen: View {
         ZStack {
             Color.red.ignoresSafeArea()
             buttons
+        }.onReceive(viewModel.$errorState) { newState in
+            if case .Succes(_) = errorState {
+                if case .None = newState {
+                    return
+                }
+            }
+            withAnimation{
+                errorState = newState
+            }
+        }.onReceive(viewModel.$isSuccesLogout) { isSuccess in
+            withAnimation{
+                if (isSuccess) {
+                    navigationState = .Auth
+                }
+            }
         }
     }
     
     var buttons: some View {
         VStack(spacing: 10) {
+            Spacer()
             button(text: "Create room", action: {navigationState = .RoomCreation})
             button(text: "Join room", action: {navigationState = .Rooms})
-            
+            Spacer().overlay {
+                Button(action: viewModel.logout) {
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                }
+            }
+
         }
     }
     
