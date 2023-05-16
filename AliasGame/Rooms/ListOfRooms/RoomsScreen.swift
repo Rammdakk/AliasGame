@@ -29,13 +29,26 @@ struct RoomsScreen: View {
     ]
     
     var body: some View {
-        List{
-            ForEach(roomsMock, id: \.name) { item in
-                room(model: item)
+        NavigationView{
+            List{
+                ForEach(roomsMock, id: \.name) { item in
+                    room(model: item)
                     //.padding(.vertical, -15)
+                }
             }
-        }.listStyle(.plain)
-        .background(Color.red.ignoresSafeArea())
+            .listStyle(.plain)
+            .background(Color.red.ignoresSafeArea())
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading){
+                    Button(action: {navigationState = .Main}) {
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }
+                }
+            }.toolbarBackground(.red, for: .navigationBar)
+            
+        }
         
     }
     
