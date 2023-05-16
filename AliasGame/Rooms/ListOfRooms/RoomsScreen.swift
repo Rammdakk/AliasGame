@@ -16,6 +16,8 @@ struct RoomsScreen: View {
 
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
+    @State private var showingAlert = false
+    @State private var code = ""
     
     let roomsMock = [RoomModel(name: "first"),
                  RoomModel(name: "second"),
@@ -46,11 +48,23 @@ struct RoomsScreen: View {
                             .foregroundColor(.white)
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: {showingAlert.toggle()}) {
+                        Image(systemName: "lock.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }
+                }
             }.toolbarBackground(.red, for: .navigationBar)
             
+        }.alert("Entering private room", isPresented: $showingAlert) {
+            TextField("Enter code", text: $code)
+            Button("Enter", action: {})
+            Button("Cancel", role: .cancel, action: {})
         }
-        
     }
+    
+
     
     func room(model: RoomModel) -> some View {
         return ZStack {
