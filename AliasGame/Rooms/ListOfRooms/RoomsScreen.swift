@@ -62,6 +62,7 @@ struct RoomsScreen: View {
             Button("Enter", action: {})
             Button("Cancel", role: .cancel, action: {})
         }
+        
     }
     
 
