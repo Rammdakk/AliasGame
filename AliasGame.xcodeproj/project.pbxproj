@@ -10,6 +10,8 @@
 		A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */; };
 		A87C97D12A13D77F00890735 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D02A13D77F00890735 /* NetworkManager.swift */; };
 		A87C97D62A13EAB700890735 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */; };
+		A87C97D82A140DF800890735 /* RoomsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D72A140DF800890735 /* RoomsScreenViewModel.swift */; };
+		A87C97DA2A140EF500890735 /* RoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D92A140EF500890735 /* RoomModel.swift */; };
 		A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB072A0F923000D1621E /* AliasGameApp.swift */; };
 		A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB092A0F923000D1621E /* ContentView.swift */; };
 		A8A5BB0C2A0F923200D1621E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0B2A0F923200D1621E /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 		A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLinks.swift; sourceTree = "<group>"; };
 		A87C97D02A13D77F00890735 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
+		A87C97D72A140DF800890735 /* RoomsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsScreenViewModel.swift; sourceTree = "<group>"; };
+		A87C97D92A140EF500890735 /* RoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomModel.swift; sourceTree = "<group>"; };
 		A8A5BB042A0F923000D1621E /* AliasGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AliasGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8A5BB072A0F923000D1621E /* AliasGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasGameApp.swift; sourceTree = "<group>"; };
 		A8A5BB092A0F923000D1621E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */,
+				A87C97D72A140DF800890735 /* RoomsScreenViewModel.swift */,
+				A87C97D92A140EF500890735 /* RoomModel.swift */,
 			);
 			path = ListOfRooms;
 			sourceTree = "<group>";
@@ -287,6 +293,8 @@
 				A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */,
 				A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */,
 				A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */,
+				A87C97DA2A140EF500890735 /* RoomModel.swift in Sources */,
+				A87C97D82A140DF800890735 /* RoomsScreenViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

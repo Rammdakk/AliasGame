@@ -12,7 +12,7 @@ import Foundation
 class AuthViewModel: ObservableObject {
     
     init() {
-        guard let acc = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self) else {
+        guard let account = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self) else {
             return
         }
         isSuccesAuth = true

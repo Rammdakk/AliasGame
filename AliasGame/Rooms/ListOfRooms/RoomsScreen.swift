@@ -7,30 +7,16 @@
 
 import SwiftUI
 
-
-struct RoomModel: Codable {
-    var name: String
-}
-
 struct RoomsScreen: View {
 
+    @StateObject private var viewModel = RoomsScreenViewModel()
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
-    
-    let roomsMock = [RoomModel(name: "first"),
-                 RoomModel(name: "second"),
-                 RoomModel(name: "third"),
-                 RoomModel(name: "very long room name for absolutely no reason aaaaa aaaaaaaaa fjfjfjfjf sjfsuu sjsjsjs djdjdjd iwiiw djdjdj"),
-                 RoomModel(name: "thirkxkd"),
-                 RoomModel(name: "sksksks"),
-                 RoomModel(name: "sskksks=="),
-                 RoomModel(name: "q9wei"),
-                 RoomModel(name: "ividi"),
-    ]
+
     
     var body: some View {
         List{
-            ForEach(roomsMock, id: \.name) { item in
+            ForEach(viewModel.listOfRooms, id: \.id) { item in
                 room(model: item)
                     //.padding(.vertical, -15)
             }
@@ -45,15 +31,17 @@ struct RoomsScreen: View {
                 .foregroundColor(.white)
                 .frame(height: 150)
                 .cornerRadius(20)
-                //.overlay(
-                //    RoundedRectangle(cornerRadius: 20)
-                //        .stroke(Color.black, lineWidth: 5)
-                //)
             HStack {
                 VStack(alignment: .leading){
                     Text(model.name)
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.black)
+                    if (model.invitationCode != nil)
+                    {
+                        Text(model.invitationCode!)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.black)
+                    }
                     
                 }
                 .padding(.leading,20)
@@ -63,7 +51,7 @@ struct RoomsScreen: View {
                     .foregroundColor(.black)
                     .padding(10)
                     .background(.red)
-                    .cornerRadius(20)
+                    .cornerRadius(10)
                     .padding(.trailing,20)
                     
                     
