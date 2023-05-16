@@ -44,7 +44,7 @@ struct RoomsScreen: View {
             Rectangle()
                 .foregroundColor(.white)
                 .frame(height: 150)
-                .cornerRadius(20)
+                .cornerRadius(10)
                 //.overlay(
                 //    RoundedRectangle(cornerRadius: 20)
                 //        .stroke(Color.black, lineWidth: 5)
