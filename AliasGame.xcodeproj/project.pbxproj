@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A846B9072A168BB9003B8257 /* RoomCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A846B9062A168BB9003B8257 /* RoomCreationViewModel.swift */; };
+		A846B9092A168D49003B8257 /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A846B9082A168D49003B8257 /* GameRoom.swift */; };
 		A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */; };
 		A87C97D12A13D77F00890735 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D02A13D77F00890735 /* NetworkManager.swift */; };
 		A87C97D62A13EAB700890735 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A846B9062A168BB9003B8257 /* RoomCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreationViewModel.swift; sourceTree = "<group>"; };
+		A846B9082A168D49003B8257 /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
 		A848ADB72A0FAFA500A081D4 /* UrlLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLinks.swift; sourceTree = "<group>"; };
 		A87C97D02A13D77F00890735 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */,
+				A846B9062A168BB9003B8257 /* RoomCreationViewModel.swift */,
+				A846B9082A168D49003B8257 /* GameRoom.swift */,
 			);
 			path = RoomCreation;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8D585402A10DBB90078A0D7 /* BearerToken.swift in Sources */,
+				A846B9092A168D49003B8257 /* GameRoom.swift in Sources */,
 				A8D585482A10DF970078A0D7 /* ErrorState.swift in Sources */,
 				A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */,
 				A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */,
@@ -284,6 +291,7 @@
 				E32B2FCB2A11735E00B163AD /* RoomsScreen.swift in Sources */,
 				A8A5BB1A2A0FA56D00D1621E /* AuthViewModel.swift in Sources */,
 				E32B2FCD2A11736C00B163AD /* RoomCreationScreen.swift in Sources */,
+				A846B9072A168BB9003B8257 /* RoomCreationViewModel.swift in Sources */,
 				A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */,
 				A8D585422A10DBC40078A0D7 /* KeyChainHelper.swift in Sources */,
 				A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */,

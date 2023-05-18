@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RoomCreationScreen: View {
     
+    @StateObject private var viewModel = RoomCreationViewModel()
+    
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
     
@@ -72,7 +74,7 @@ struct RoomCreationScreen: View {
                     .padding(.top, 40)
                     
                     Spacer()
-                    button(text: "Done", action: {})
+                    button(text: "Done", action: {viewModel.createRoom(name: name, isPrivate: isPrivate)})
                         .padding(.bottom,20)
                 }
                 
@@ -86,6 +88,19 @@ struct RoomCreationScreen: View {
                 }
             }
             
+        }.onReceive(viewModel.$errorState) { newState in
+            if case .Succes(_) = errorState {
+                if case .None = newState {
+                    return
+                }
+            }
+            withAnimation{
+                errorState = newState
+            }
+        }.onReceive(viewModel.$navigationState){ newState in
+            withAnimation{
+                navigationState = newState
+            }
         }
     }
     
