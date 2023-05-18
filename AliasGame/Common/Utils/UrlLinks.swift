@@ -7,7 +7,7 @@
 
 class UrlLinks {
     // Base url made by ngrok, just for testing.
-    static let BASE_URL = "https://a595-188-35-131-222.eu.ngrok.io"
+    static let BASE_URL = "https://e8cd-188-35-131-222.eu.ngrok.io"
     
     // Auth
     static let LOGIN = "\(BASE_URL)/users/login"

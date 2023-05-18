@@ -33,4 +33,13 @@ struct RoomModel: Codable {
         name = try values.decode(String.self, forKey: .name)
         creator = try values.decode(String.self, forKey: .creator)
       }
+    
+    init(isPrivate: Bool, id: String, admin: String, name: String, creator: String, invitationCode: String?) {
+        self.isPrivate = isPrivate
+        self.id = id
+        self.admin = admin
+        self.name = name
+        self.creator = creator
+        self.invitationCode = invitationCode
+    }
 }
