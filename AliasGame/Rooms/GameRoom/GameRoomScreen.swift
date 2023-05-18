@@ -20,7 +20,7 @@ struct PlayerModel: Codable {
     var name: String
 }
 
-struct GameRoom: View {
+struct GameRoomScreen: View {
     @Binding var navigationState: NavigationState
     @State private var showSettings = false
     let playersMock = [PlayerModel(name: "Bob"),
@@ -106,8 +106,8 @@ struct GameRoom: View {
     }
 }
 
-struct GameRoom_Previews: PreviewProvider {
+struct GameRoomScreen_Previews: PreviewProvider {
     static var previews: some View {
-        GameRoom(navigationState: .constant(.GameRoom))
+        GameRoomScreen(navigationState: .constant(.GameRoom))
     }
 }

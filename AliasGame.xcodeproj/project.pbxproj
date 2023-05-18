@@ -17,7 +17,6 @@
 		A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB072A0F923000D1621E /* AliasGameApp.swift */; };
 		A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB092A0F923000D1621E /* ContentView.swift */; };
 		A8A5BB0C2A0F923200D1621E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0B2A0F923200D1621E /* Assets.xcassets */; };
-		A8A5BB0F2A0F923200D1621E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0E2A0F923200D1621E /* Preview Assets.xcassets */; };
 		A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB152A0F96B800D1621E /* AuthScreen.swift */; };
 		A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB172A0FA53900D1621E /* RegisterResponse.swift */; };
 		A8A5BB1A2A0FA56D00D1621E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB192A0FA56D00D1621E /* AuthViewModel.swift */; };
@@ -30,7 +29,7 @@
 		A8D585482A10DF970078A0D7 /* ErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585472A10DF970078A0D7 /* ErrorState.swift */; };
 		E32B2FCB2A11735E00B163AD /* RoomsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */; };
 		E32B2FCD2A11736C00B163AD /* RoomCreationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */; };
-		E32B2FD02A16B63B00B163AD /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCF2A16B63B00B163AD /* GameRoom.swift */; };
+		E32B2FD02A16B63B00B163AD /* GameRoomScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */; };
 		E32B2FD22A16B69500B163AD /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FD12A16B69500B163AD /* SettingsSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +58,7 @@
 		A8D585472A10DF970078A0D7 /* ErrorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorState.swift; sourceTree = "<group>"; };
 		E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsScreen.swift; sourceTree = "<group>"; };
 		E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreationScreen.swift; sourceTree = "<group>"; };
-		E32B2FCF2A16B63B00B163AD /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
+		E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomScreen.swift; sourceTree = "<group>"; };
 		E32B2FD12A16B69500B163AD /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,7 +219,7 @@
 		E32B2FCE2A16B62400B163AD /* GameRoom */ = {
 			isa = PBXGroup;
 			children = (
-				E32B2FCF2A16B63B00B163AD /* GameRoom.swift */,
+				E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */,
 				E32B2FD12A16B69500B163AD /* SettingsSheet.swift */,
 			);
 			path = GameRoom;
@@ -284,7 +283,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8A5BB0F2A0F923200D1621E /* Preview Assets.xcassets in Resources */,
 				A8A5BB0C2A0F923200D1621E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,7 +313,7 @@
 				A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */,
 				A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */,
 				A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */,
-				E32B2FD02A16B63B00B163AD /* GameRoom.swift in Sources */,
+				E32B2FD02A16B63B00B163AD /* GameRoomScreen.swift in Sources */,
 				A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */,
 				A87C97DA2A140EF500890735 /* RoomModel.swift in Sources */,
 				A87C97D82A140DF800890735 /* RoomsScreenViewModel.swift in Sources */,
