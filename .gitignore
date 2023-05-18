@@ -3,6 +3,7 @@
 build/
 DerivedData/
 xcuserdata/
+.idea
 
 # Swift Package Manager
 .build/

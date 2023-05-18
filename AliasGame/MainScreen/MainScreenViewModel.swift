@@ -26,7 +26,7 @@ class MainScreenViewModel: ObservableObject {
             return
         }
         
-        NetworkManager().makeAuthenticatedRequest(url: logoutURL, method: "POST", parameters: nil, bearerToken: bearerToken) { result in
+        NetworkManager().makeNonReturningRequest(url: logoutURL, method: .post, parameters: nil, bearerToken: bearerToken) { result in
             switch result {
             case .success():
                 KeychainHelper.shared.delete(service: userBearerTokenService, account: account)

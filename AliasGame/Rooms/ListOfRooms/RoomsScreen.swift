@@ -8,32 +8,19 @@
 import SwiftUI
 
 
-struct RoomModel: Codable {
-    var name: String
-}
-
 struct RoomsScreen: View {
 
+    @StateObject private var viewModel = RoomsScreenViewModel()
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
     @State private var showingAlert = false
     @State private var code = ""
     
-    let roomsMock = [RoomModel(name: "first"),
-                 RoomModel(name: "second"),
-                 RoomModel(name: "third"),
-                 RoomModel(name: "very long room name for absolutely no reason aaaaa aaaaaaaaa fjfjfjfjf sjfsuu sjsjsjs djdjdjd iwiiw djdjdj"),
-                 RoomModel(name: "thirkxkd"),
-                 RoomModel(name: "sksksks"),
-                 RoomModel(name: "sskksks=="),
-                 RoomModel(name: "q9wei"),
-                 RoomModel(name: "ividi"),
-    ]
-    
+
     var body: some View {
         NavigationView{
             List{
-                ForEach(roomsMock, id: \.name) { item in
+                ForEach(viewModel.listOfRooms, id: \.id) { item in
                     room(model: item)
                     //.padding(.vertical, -15)
                 }

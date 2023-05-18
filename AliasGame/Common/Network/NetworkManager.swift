@@ -11,9 +11,9 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    func makeAuthenticatedRequest(url: URL, method: String, parameters: [String: Any]?, bearerToken: String, completion: @escaping (Result<Void, NetworkError>) -> Void) {
+    func makeNonReturningRequest(url: URL, method: HTTPMethod, parameters: [String: Any]?, bearerToken: String, completion: @escaping (Result<Void, NetworkError>) -> Void) {
           var request = URLRequest(url: url)
-          request.httpMethod = method
+          request.httpMethod = method.rawValue
           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
           request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
           
@@ -46,9 +46,9 @@ class NetworkManager {
           }.resume()
       }
     
-    func makeAuthenticatedRequest<T: Decodable>(url: URL, method: String, parameters: [String: Any]?, bearerToken: String, completion: @escaping (Result<T?, NetworkError>) -> Void) {
+    func makeRequest<T: Decodable>(url: URL, method: HTTPMethod, parameters: [String: Any]?, bearerToken: String, completion: @escaping (Result<T?, NetworkError>) -> Void) {
         var request = URLRequest(url: url)
-        request.httpMethod = method
+        request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
         
@@ -78,9 +78,15 @@ class NetworkManager {
                 if let data = data {
                     do {
                         let decoder = JSONDecoder()
+                        guard let jsonString = String(data: data, encoding: .utf8) else {
+                            print("Failed to convert response data to string")
+                            return
+                        }
+                        print(jsonString)
                         let decodedResponse = try decoder.decode(T.self, from: data)
                         completion(.success(decodedResponse))
                     } catch {
+                        print(error)
                         completion(.failure(.decodingFailed))
                     }
                 } else {
