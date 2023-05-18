@@ -18,16 +18,16 @@ struct ContentView: View {
             switch navigationState {
                 
             case .Auth:
-                AuthScreen(navigationState: $navigationState, errorState: $errorState)
+                AuthScreen(navigationState: $navigationState.animation(), errorState: $errorState)
                 
             case .Main:
-                MainScreen(navigationState: $navigationState, errorState: $errorState)
+                MainScreen(navigationState: $navigationState.animation(), errorState: $errorState)
                 
             case .RoomCreation:
-                RoomCreationScreen(navigationState: $navigationState, errorState: $errorState)
+                RoomCreationScreen(navigationState: $navigationState.animation(), errorState: $errorState)
                 
             case .Rooms:
-                RoomsScreen(navigationState: $navigationState, errorState: $errorState)
+                RoomsScreen(navigationState: $navigationState.animation(), errorState: $errorState)
 //
 //            case .Game:
 //                GameScreen(navigationState: $navigationState)

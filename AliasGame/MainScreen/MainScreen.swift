@@ -65,9 +65,6 @@ struct MainScreen: View {
         }
         .buttonStyle(ScaleButtonStyle())
     }
-    
-
-    
 }
 
 public struct ScaleButtonStyle: ButtonStyle {
@@ -87,3 +84,8 @@ public struct ScaleButtonStyle: ButtonStyle {
     private let duration: Double
 }
 
+struct MainScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        MainScreen(navigationState: .constant(.Main), errorState: .constant(.Succes(message: "Test")))
+    }
+}
