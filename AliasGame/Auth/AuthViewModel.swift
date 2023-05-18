@@ -12,10 +12,9 @@ import Foundation
 class AuthViewModel: ObservableObject {
     
     init() {
-        guard let account = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self) else {
-            return
+        if (KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self) != nil)  {
+            isSuccesAuth = true
         }
-        isSuccesAuth = true
     }
     private let succesLoginMessage = "You have successfully logged in"
     @Published var showLogin = false
@@ -38,11 +37,15 @@ class AuthViewModel: ObservableObject {
                        print("ID: \(loginResponse.id)")
                        print("User ID: \(loginResponse.user.id)")
                        try KeychainHelper.shared.save(loginResponse, service: userBearerTokenService, account: account)
-                       self.errorState = .Succes(message: self.succesLoginMessage)
-                       self.isSuccesAuth = true
+                       DispatchQueue.main.async {
+                           self.errorState = .Succes(message: self.succesLoginMessage)
+                           self.isSuccesAuth = true
+                       }
                    } catch {
                        print("Error decoding login response: \(error)")
-                       self.errorState = .Error(message: error.localizedDescription)
+                       DispatchQueue.main.async {
+                           self.errorState = .Error(message: error.localizedDescription)
+                       }
                    }
                }
     }
@@ -65,7 +68,9 @@ class AuthViewModel: ObservableObject {
                 self.login(email: email, password: password)
             } catch {
                 print("Error decoding register response: \(error)")
-                self.errorState = .Error(message: error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: error.localizedDescription)
+                }
             }
         }
     }
@@ -80,7 +85,9 @@ class AuthViewModel: ObservableObject {
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    self.errorState = .Error(message: error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.errorState = .Error(message: error.localizedDescription)
+                    }
                     print("Error: \(error)")
                     return
                 }

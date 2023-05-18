@@ -42,7 +42,7 @@ struct MainScreen: View {
             button(text: "Join room", action: {navigationState = .Rooms})
             Spacer().overlay {
                 Button(action: viewModel.logout) {
-                        Image(systemName: "arrow.left.circle.fill")
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
                             .font(.title)
                             .foregroundColor(.white)
                             .padding()

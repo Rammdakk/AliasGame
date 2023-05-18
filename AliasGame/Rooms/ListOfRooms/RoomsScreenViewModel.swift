@@ -19,18 +19,17 @@ class RoomsScreenViewModel: ObservableObject {
     }
     
     func getList() {
-        
-//        // Only for test
-//        return getListMocks()
+        // Only for test
+        return getListMocks()
  
         guard let getListUrl = URL(string: UrlLinks.ROOM_LIST) else {
-            self.errorState = .Error(message: "Logout failed")
+            self.errorState = .Error(message: "URL creation error")
             listOfRooms = []
             return
         }
 
         guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
-            self.errorState = .Error(message: "Logout failed")
+            self.errorState = .Error(message: "Access denied")
             listOfRooms = []
             return
         }
@@ -39,12 +38,16 @@ class RoomsScreenViewModel: ObservableObject {
         NetworkManager().makeRequest(url: getListUrl, method: .get, parameters: nil, bearerToken: bearerToken) { (result: Result<[RoomModel]?, NetworkError>) in
             switch result {
             case .success(let data):
-                self.listOfRooms = data ?? []
+                DispatchQueue.main.async {
+                    self.listOfRooms = data ?? []
+                }
                 return
             case .failure(let error):
                 // Handle the error
                 print(error)
-                self.errorState = .Error(message: "Logout failed: \(error.errorMessage)")
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
             }
         }
     }
