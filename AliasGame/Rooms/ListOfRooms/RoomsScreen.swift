@@ -11,6 +11,7 @@ import SwiftUI
 struct RoomsScreen: View {
 
     @StateObject private var viewModel = RoomsScreenViewModel()
+    
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
     @State private var showingAlert = false
@@ -48,6 +49,15 @@ struct RoomsScreen: View {
             TextField("Enter code", text: $code)
             Button("Enter", action: {})
             Button("Cancel", role: .cancel, action: {})
+        }.onReceive(viewModel.$errorState) { newState in
+            if case .Succes(_) = errorState {
+                if case .None = newState {
+                    return
+                }
+            }
+            withAnimation{
+                errorState = newState
+            }
         }
         
     }
@@ -73,12 +83,22 @@ struct RoomsScreen: View {
                 }
                 .padding(.leading,20)
                 Spacer()
+                if (model.invitationCode != nil)
+                {
+                    Text("Edit")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+                        .padding(10)
+                        .background(.red)
+                        .cornerRadius(10)
+                        .padding(.trailing, 5)
+                }
                 Text("Join")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.black)
                     .padding(10)
-                    .background(.red)
-                    .cornerRadius(20)
+                    .background(.green)
+                    .cornerRadius(10)
                     .padding(.trailing,20)
                     
                     
