@@ -52,4 +52,8 @@ struct GameRoom: Codable {
         self.invitationCode = invitationCode
         self.id = id
     }
+    
+    func mapToRoomModel() -> RoomModel {
+        return RoomModel(isPrivate: isPrivate, id: id, admin: admin.id, name: name, creator: creator.id, invitationCode: invitationCode, points: pointsPerWord)
+    }
 }
