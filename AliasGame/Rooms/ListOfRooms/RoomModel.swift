@@ -12,6 +12,7 @@ struct RoomModel: Codable {
       let id: String
       let admin: String
       let name: String
+      let points: Int?
       let creator: String
       let invitationCode: String?
     
@@ -20,26 +21,29 @@ struct RoomModel: Codable {
         case id = "id"
         case admin = "admin"
         case name = "name"
+        case points = "points"
         case creator = "creator"
         case invitationCode = "invitationCode"
     }
     
     init(from decoder: Decoder) throws {
-          let values = try decoder.container(keyedBy: CodingKeys.self)
-          invitationCode = try values.decodeIfPresent(String.self, forKey: .invitationCode) ?? nil
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        invitationCode = try values.decodeIfPresent(String.self, forKey: .invitationCode) ?? nil
         isPrivate = try values.decode(Bool.self, forKey: .isPrivate)
         id = try values.decode(String.self, forKey: .id)
         admin = try values.decode(String.self, forKey: .admin)
         name = try values.decode(String.self, forKey: .name)
+        points = try values.decodeIfPresent(Int.self, forKey: .points) ?? nil
         creator = try values.decode(String.self, forKey: .creator)
       }
     
-    init(isPrivate: Bool, id: String, admin: String, name: String, creator: String, invitationCode: String?) {
+    init(isPrivate: Bool, id: String, admin: String, name: String, creator: String, invitationCode: String?, points: Int?) {
         self.isPrivate = isPrivate
         self.id = id
         self.admin = admin
         self.name = name
         self.creator = creator
         self.invitationCode = invitationCode
+        self.points = points
     }
 }

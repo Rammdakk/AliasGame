@@ -41,7 +41,7 @@ struct ContentView: View {
     }
 }
 
-enum NavigationState: Hashable {
+enum NavigationState {
     
     case Auth
 
@@ -51,7 +51,7 @@ enum NavigationState: Hashable {
     
     case Rooms
     
-    case GameRoom
+    case GameRoom(room: RoomModel)
 //
 //    case GameScreen
 }
