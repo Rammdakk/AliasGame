@@ -34,7 +34,6 @@ class RoomCreationViewModel: ObservableObject {
         NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<GameRoom?, NetworkError>) in
             switch result {
             case .success(let data):
-                print(data)
                 if let name = data?.name {
                     DispatchQueue.main.async {
                         self.errorState = .Succes(message: "Room \(name) successfully created")

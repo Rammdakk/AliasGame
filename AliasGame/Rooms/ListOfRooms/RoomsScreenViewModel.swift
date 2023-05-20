@@ -69,12 +69,12 @@ class RoomsScreenViewModel: ObservableObject {
         
         print("called \(bearerToken)")
         
-        var parameters = ["gameRoomId": roomID, "invitationCode": invitationCode ?? ""] as [String : Any]
-        
-        if (invitationCode == nil) {
-            parameters = ["gameRoomId": roomID] as [String : Any]
+        var parameters: [String: Any] = ["gameRoomId": roomID]
+
+        if let invitationCode = invitationCode {
+            parameters["invitationCode"] = invitationCode
         }
-        print(parameters)
+
         NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<RoomModel?, NetworkError>) in
             switch result {
             case .success(let data):

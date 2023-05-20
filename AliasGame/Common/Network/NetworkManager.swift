@@ -61,7 +61,6 @@ class NetworkManager {
                 return
             }
         }
-        print(request)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(.networkError(error.localizedDescription)))
