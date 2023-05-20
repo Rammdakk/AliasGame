@@ -49,7 +49,7 @@ struct RoomsScreen: View {
         }.alert("Entering private room", isPresented: $showingAlert) {
             TextField("Enter id", text: $id)
             TextField("Enter code", text: $code)
-            Button("Enter", action: {})
+            Button("Enter", action: {viewModel.joinRoom(roomID: id, invitationCode: code)})
             Button("Cancel", role: .cancel, action: {})
         }.onReceive(viewModel.$errorState) { newState in
             if case .Succes(_) = errorState {
@@ -89,19 +89,6 @@ struct RoomsScreen: View {
                 }
                 .padding(.leading,20)
                 Spacer()
-                if (model.invitationCode != nil)
-                {
-                    Button (action: {
-                    }) {
-                        Text("Edit")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.black)
-                            .padding(10)
-                            .background(.red)
-                            .cornerRadius(10)
-                            .padding(.trailing, 5)
-                    }
-                }
                 Button (action: {
                     viewModel.joinRoom(roomID: model.id, invitationCode: nil)
                 }) {
