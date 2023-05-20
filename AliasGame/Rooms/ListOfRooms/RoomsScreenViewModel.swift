@@ -13,6 +13,7 @@ class RoomsScreenViewModel: ObservableObject {
 
     @Published var errorState: ErrorState = .None
     @Published var listOfRooms: [RoomModel] = []
+    @Published var navigationState: NavigationState = .Rooms
     
     init() {
         getList()
@@ -20,7 +21,7 @@ class RoomsScreenViewModel: ObservableObject {
     
     func getList() {
         // Only for test
-        return getListMocks()
+//        return getListMocks()
  
         guard let getListUrl = URL(string: UrlLinks.ROOM_LIST) else {
             self.errorState = .Error(message: "URL creation error")
@@ -52,14 +53,55 @@ class RoomsScreenViewModel: ObservableObject {
         }
     }
     
+    // invitationCode = nil, if room is public.
+    func joinRoom(roomID: String, invitationCode: String?) {
+ 
+        guard let getListUrl = URL(string: UrlLinks.JOIN_ROOM) else {
+            self.errorState = .Error(message: "URL creation error")
+            return
+        }
+
+        guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
+            self.errorState = .Error(message: "Access denied")
+            listOfRooms = []
+            return
+        }
+        
+        print("called \(bearerToken)")
+        
+        var parameters = ["gameRoomId": roomID, "invitationCode": invitationCode ?? ""] as [String : Any]
+        
+        if (invitationCode == nil) {
+            parameters = ["gameRoomId": roomID] as [String : Any]
+        }
+        print(parameters)
+        NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<RoomModel?, NetworkError>) in
+            switch result {
+            case .success(let data):
+                if let roomData = data {
+                    DispatchQueue.main.async {
+                        self.navigationState = .GameRoom(room: roomData)
+                    }
+                }
+                return
+            case .failure(let error):
+                // Handle the error
+                print(error)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
+            }
+        }
+    }
+    
     func getListMocks() {
-        let room1 = RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1")
-        let room2 = RoomModel(isPrivate: false, id: "456", admin: "admin2", name: "Room 2", creator: "creator2", invitationCode: nil)
-        let room3 = RoomModel(isPrivate: false, id: "789", admin: "admin3", name: "Room 3", creator: "creator3", invitationCode: "code3")
-        let room4 = RoomModel(isPrivate: false, id: "101", admin: "admin4", name: "Room 4", creator: "creator4", invitationCode: nil)
-        let room5 = RoomModel(isPrivate: false, id: "202", admin: "admin5", name: "Room 5", creator: "creator5", invitationCode: "code5")
-        let room6 = RoomModel(isPrivate: false, id: "303", admin: "admin6", name: "Room 6", creator: "creator6", invitationCode: nil)
-        let room7 = RoomModel(isPrivate: false, id: "404", admin: "admin7", name: "Room 7", creator: "creator7", invitationCode: "code7")
+        let room1 = RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)
+        let room2 = RoomModel(isPrivate: false, id: "456", admin: "admin2", name: "Room 2", creator: "creator2", invitationCode: nil, points: 10)
+        let room3 = RoomModel(isPrivate: false, id: "789", admin: "admin3", name: "Room 3", creator: "creator3", invitationCode: "code3", points: 10)
+        let room4 = RoomModel(isPrivate: false, id: "101", admin: "admin4", name: "Room 4", creator: "creator4", invitationCode: nil, points: 10)
+        let room5 = RoomModel(isPrivate: false, id: "202", admin: "admin5", name: "Room 5", creator: "creator5", invitationCode: "code5", points: 10)
+        let room6 = RoomModel(isPrivate: false, id: "303", admin: "admin6", name: "Room 6", creator: "creator6", invitationCode: nil, points: 10)
+        let room7 = RoomModel(isPrivate: false, id: "404", admin: "admin7", name: "Room 7", creator: "creator7", invitationCode: "code7", points: 10)
         listOfRooms = [room1, room2, room3, room4, room5, room6, room7]
     }
 }

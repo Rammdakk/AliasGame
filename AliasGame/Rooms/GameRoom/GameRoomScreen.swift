@@ -60,10 +60,12 @@ struct GameRoomScreen: View {
     
     var header: some View {
         VStack(alignment: .leading){
+            switch navigationState {
+            case .GameRoom(let room):
             HStack {
-                Text(name)
-                    .font(.system(size: 40, weight: .heavy))
-                    .foregroundColor(.black).padding(.horizontal)
+                    Text("Room name: \(room.name)" )
+                        .font(.system(size: 30, weight: .heavy))
+                        .foregroundColor(.black).padding(.horizontal)
                 Spacer()
                 Button(action: {showSettings.toggle()}){
                     Image(systemName: "gearshape.fill")
@@ -73,11 +75,16 @@ struct GameRoomScreen: View {
                 }
                 
             }.padding()
-            Text("CODE")
+                Text("CODE \(room.invitationCode ?? "")")
                 .font(.system(size: 25, weight: .bold))
                 .foregroundColor(.black)
                 .padding(.horizontal)
                 .padding()
+            default:
+                Text("Error" )
+                    .font(.system(size: 30, weight: .heavy))
+                    .foregroundColor(.black).padding(.horizontal)
+            }
         }.padding(.vertical)
     }
     
@@ -109,6 +116,6 @@ struct GameRoomScreen: View {
 
 struct GameRoomScreen_Previews: PreviewProvider {
     static var previews: some View {
-        GameRoomScreen(navigationState: .constant(.GameRoom))
+        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))))
     }
 }

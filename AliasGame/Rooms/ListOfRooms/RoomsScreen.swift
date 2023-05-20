@@ -58,6 +58,10 @@ struct RoomsScreen: View {
             withAnimation{
                 errorState = newState
             }
+        }.onReceive(viewModel.$navigationState) { newState in
+            withAnimation{
+                navigationState = newState
+            }
         }
         
     }
@@ -85,21 +89,28 @@ struct RoomsScreen: View {
                 Spacer()
                 if (model.invitationCode != nil)
                 {
-                    Text("Edit")
+                    Button (action: {
+                    }) {
+                        Text("Edit")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.black)
+                            .padding(10)
+                            .background(.red)
+                            .cornerRadius(10)
+                            .padding(.trailing, 5)
+                    }
+                }
+                Button (action: {
+                    viewModel.joinRoom(roomID: model.id, invitationCode: nil)
+                }) {
+                    Text("Join")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.black)
                         .padding(10)
-                        .background(.red)
+                        .background(.green)
                         .cornerRadius(10)
-                        .padding(.trailing, 5)
+                        .padding(.trailing,20)
                 }
-                Text("Join")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.black)
-                    .padding(10)
-                    .background(.green)
-                    .cornerRadius(10)
-                    .padding(.trailing,20)
                     
                     
                 
