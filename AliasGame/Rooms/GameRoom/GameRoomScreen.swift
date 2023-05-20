@@ -22,6 +22,7 @@ struct PlayerModel: Codable {
 
 struct GameRoomScreen: View {
     @Binding var navigationState: NavigationState
+    @State var name = "Game room"
     @State private var showSettings = false
     let playersMock = [PlayerModel(name: "Bob"),
                        PlayerModel(name: "not Bob"),
@@ -34,7 +35,7 @@ struct GameRoomScreen: View {
             Color.red.ignoresSafeArea()
             mainView
                 .sheet(isPresented: $showSettings) {
-                    SettingsSheet(show: $showSettings.animation())
+                    SettingsSheet(show: $showSettings.animation(), name: $name)
                 }
         }
     }
