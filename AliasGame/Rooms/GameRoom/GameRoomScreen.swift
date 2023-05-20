@@ -81,12 +81,12 @@ struct GameRoomScreen: View {
                 }.padding()
                 
                 VStack(alignment:.leading, spacing: 5){
-                    Text("ID: 09518E1B-4D96-45D1-8E5F-6E756C8A98A4")
+                    Text("ID: \(room.id )")
                         .font(.system(size: 10, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.horizontal)
                     
-                    Text("Code: CODE")
+                    Text("CODE \(room.invitationCode ?? "")")
                         .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.horizontal)
