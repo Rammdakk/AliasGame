@@ -16,7 +16,6 @@ struct SettingsSheet: View {
     @Binding var errorState: ErrorState
     
     @State private var name: String = ""
-    @State private var code: String = ""
     @State private var isPrivate = false
     @State private var pointsPerWord: Double = 10
     
@@ -40,18 +39,6 @@ struct SettingsSheet: View {
                         .padding()
                         .background(.white)
                         .cornerRadius(10).onAppear(perform: {isPrivate = room.isPrivate})
-                    
-                    if isPrivate{
-                        VStack(alignment: .leading){
-                            Text("Enter access code ")
-                                .font(.system(size: 25, weight: .bold))
-                            TextField("Code", text: $code).onAppear(perform: {code = room.invitationCode ?? "undef"})
-                            
-                        }.padding()
-                            .background(.white)
-                            .cornerRadius(10)
-                    }
-                    
                     
                     VStack(alignment: .leading){
                         Text("Points per word: \(Int(pointsPerWord))")
@@ -100,8 +87,8 @@ struct SettingsSheet: View {
     }
 }
 
-//struct SettingsSheet_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingsSheet(show: .constant(true), name: .constant("Room"))
-//    }
-//}
+struct SettingsSheet_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsSheet(show: .constant(true), room: .constant(RoomModel(isPrivate: false, id: "81F61C99-9178-4BE9-85E5-343381619FB9", admin: "User1", name: "Room1-public", creator: "User1", invitationCode: "aSwTb", points: 10)), errorState: .constant(.None))
+    }
+}

@@ -41,34 +41,6 @@ struct RoomCreationScreen: View {
                             .padding()
                             .background(.white)
                             .cornerRadius(10)
-                        
-                        if isPrivate{
-                            VStack(alignment: .leading){
-                                Text("Enter access code ")
-                                    .font(.system(size: 25, weight: .bold))
-                                TextField("Code", text: $code)
-                                
-                            }.padding()
-                                .background(.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        
-                        VStack(alignment: .leading){
-                            Text("Rounds: \(Int(numberOfRoudns))")
-                                .font(.system(size: 25, weight: .bold))
-                            Slider(value: $numberOfRoudns, in: 1...20).tint(.red)
-                        }.padding()
-                            .background(.white)
-                            .cornerRadius(10)
-                        
-                        VStack(alignment: .leading){
-                            Text("Teams: \(Int(numberOfTeams))")
-                                .font(.system(size: 25, weight: .bold))
-                            Slider(value: $numberOfTeams, in: 2...10).tint(.red)
-                        }.padding()
-                            .background(.white)
-                            .cornerRadius(10)
                     }
                     .padding(.horizontal, 10)
                     .padding(.top, 40)
