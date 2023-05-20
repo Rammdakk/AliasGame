@@ -16,6 +16,7 @@ struct RoomsScreen: View {
     @Binding var errorState: ErrorState
     @State private var showingAlert = false
     @State private var code = ""
+    @State private var id = ""
     
 
     var body: some View {
@@ -46,6 +47,7 @@ struct RoomsScreen: View {
             }.toolbarBackground(.red, for: .navigationBar)
             
         }.alert("Entering private room", isPresented: $showingAlert) {
+            TextField("Enter id", text: $id)
             TextField("Enter code", text: $code)
             Button("Enter", action: {})
             Button("Cancel", role: .cancel, action: {})

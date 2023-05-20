@@ -24,11 +24,11 @@ struct GameRoomScreen: View {
     @Binding var navigationState: NavigationState
     @State var name = "Game room"
     @State private var showSettings = false
-    let playersMock = [PlayerModel(name: "Bob"),
-                       PlayerModel(name: "not Bob"),
-                       PlayerModel(name: "definitely not Bob"),
-                       PlayerModel(name: "Amogus"),
-                       PlayerModel(name: "Ivan")]
+    @State var playersMock = [PlayerModel(name: "Bob"),
+                              PlayerModel(name: "not Bob"),
+                              PlayerModel(name: "definitely not Bob"),
+                              PlayerModel(name: "Amogus"),
+                              PlayerModel(name: "Ivan")]
     
     var body: some View {
         ZStack {
@@ -51,11 +51,15 @@ struct GameRoomScreen: View {
                 ForEach(playersMock, id: \.name) { item in
                     player(model: item)
                     
-                }
+                }.onDelete(perform: delete)
             }
             .listStyle(.plain)
             .background(Color.red.ignoresSafeArea())
         }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        playersMock.remove(atOffsets: offsets)
     }
     
     var header: some View {
@@ -75,16 +79,22 @@ struct GameRoomScreen: View {
                 }
                 
             }.padding()
-                Text("CODE \(room.invitationCode ?? "")")
-                .font(.system(size: 25, weight: .bold))
-                .foregroundColor(.black)
-                .padding(.horizontal)
-                .padding()
-            default:
-                Text("Error" )
-                    .font(.system(size: 30, weight: .heavy))
-                    .foregroundColor(.black).padding(.horizontal)
+
+            VStack(alignment:.leading, spacing: 5){
+                Text("ID: 09518E1B-4D96-45D1-8E5F-6E756C8A98A4")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundColor(.black)
+                    .padding(.horizontal)
+                
+                Text("Code: CODE")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundColor(.black)
+                    .padding(.horizontal)
+                
+                
             }
+            .padding()
+            .textSelection(.enabled)
         }.padding(.vertical)
     }
     

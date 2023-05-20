@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var navigationState: NavigationState = .Auth
+    @State private var navigationState: NavigationState = .GameRoom
     @State private var errorState: ErrorState = .None
     
     var body: some View {
