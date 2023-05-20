@@ -74,7 +74,9 @@ class RoomsScreenViewModel: ObservableObject {
         if let invitationCode = invitationCode {
             parameters["invitationCode"] = invitationCode
         }
-
+        
+        self.navigationState = .GameRoom(room: RoomModel(isPrivate: false, id: "81F61C99-9178-4BE9-85E5-343381619FB9", admin: "User1", name: "Room1-public", creator: "User1", invitationCode: "aSwTb", points: 10))
+        return
         NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<RoomModel?, NetworkError>) in
             switch result {
             case .success(let data):

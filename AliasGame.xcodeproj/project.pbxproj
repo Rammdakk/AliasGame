@@ -23,6 +23,7 @@
 		A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */; };
 		A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */; };
 		A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */; };
+		A8C9B5BF2A19385B00C999AB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */; };
 		A8D585402A10DBB90078A0D7 /* BearerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */; };
 		A8D585422A10DBC40078A0D7 /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */; };
 		A8D585462A10DF870078A0D7 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585452A10DF870078A0D7 /* ErrorView.swift */; };
@@ -52,6 +53,7 @@
 		A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerToken.swift; sourceTree = "<group>"; };
 		A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 		A8D585452A10DF870078A0D7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			children = (
 				E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */,
 				E32B2FD12A16B69500B163AD /* SettingsSheet.swift */,
+				A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */,
 			);
 			path = GameRoom;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */,
 				A87C97DA2A140EF500890735 /* RoomModel.swift in Sources */,
 				A87C97D82A140DF800890735 /* RoomsScreenViewModel.swift in Sources */,
+				A8C9B5BF2A19385B00C999AB /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

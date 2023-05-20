@@ -28,8 +28,8 @@ struct ContentView: View {
             case .Rooms:
                 RoomsScreen(navigationState: $navigationState.animation(), errorState: $errorState)
                 
-            case .GameRoom:
-                GameRoomScreen(navigationState: $navigationState.animation())
+            case .GameRoom(let room):
+                GameRoomScreen(navigationState: $navigationState.animation(), errorState: $errorState, room: room)
 //
 //            case .Game:
 //                GameScreen(navigationState: $navigationState)

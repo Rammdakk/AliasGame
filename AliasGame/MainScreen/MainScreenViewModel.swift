@@ -15,7 +15,6 @@ class MainScreenViewModel: ObservableObject {
     @Published var isSuccesLogout = false
     
     func logout() {
-        
         guard let logoutURL = URL(string: UrlLinks.LOGOUT) else {
             DispatchQueue.main.async {
                 self.errorState = .Error(message: "Logout failed")

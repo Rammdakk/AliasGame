@@ -21,8 +21,12 @@ struct PlayerModel: Codable {
 }
 
 struct GameRoomScreen: View {
+    
     @Binding var navigationState: NavigationState
-    @State var name = "Game room"
+    @Binding var errorState: ErrorState
+    var room: RoomModel
+    
+    @State private var currentRoom: RoomModel = RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)
     @State private var showSettings = false
     @State var playersMock = [PlayerModel(name: "Bob"),
                               PlayerModel(name: "not Bob"),
@@ -35,10 +39,10 @@ struct GameRoomScreen: View {
             Color.red.ignoresSafeArea()
             mainView
                 .sheet(isPresented: $showSettings) {
-                    SettingsSheet(show: $showSettings.animation(), name: $name)
+                        SettingsSheet(show: $showSettings.animation(), room: $currentRoom, errorState: $errorState)
+                    }
                 }
         }
-    }
     
     
     var mainView: some View {
@@ -46,7 +50,9 @@ struct GameRoomScreen: View {
             header
                 .background(
                     RoundedRectangle(cornerRadius: 20).foregroundColor(.white).padding()
-                )
+                ).onAppear{
+                    currentRoom = room
+                }
             List{
                 ForEach(playersMock, id: \.name) { item in
                     player(model: item)
@@ -64,10 +70,8 @@ struct GameRoomScreen: View {
     
     var header: some View {
         VStack(alignment: .leading){
-            switch navigationState {
-            case .GameRoom(let room):
                 HStack {
-                    Text("Room name: \(room.name)" )
+                    Text("Room name: \(currentRoom.name)" )
                         .font(.system(size: 30, weight: .heavy))
                         .foregroundColor(.black).padding(.horizontal)
                     Spacer()
@@ -81,12 +85,12 @@ struct GameRoomScreen: View {
                 }.padding()
                 
                 VStack(alignment:.leading, spacing: 5){
-                    Text("ID: 09518E1B-4D96-45D1-8E5F-6E756C8A98A4")
+                    Text("ID: \(currentRoom.id)")
                         .font(.system(size: 10, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.horizontal)
                     
-                    Text("Code: CODE")
+                    Text("Code: \(currentRoom.invitationCode ?? "Room is public")")
                         .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.horizontal)
@@ -95,11 +99,6 @@ struct GameRoomScreen: View {
                 }
                 .padding()
                 .textSelection(.enabled)
-            default:
-                Text("Error" )
-                    .font(.system(size: 30, weight: .heavy))
-                    .foregroundColor(.black).padding(.horizontal)
-        }
     }.padding(.vertical)
 }
 
@@ -131,6 +130,6 @@ func player(model: PlayerModel) -> some View {
 
 struct GameRoomScreen_Previews: PreviewProvider {
     static var previews: some View {
-        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))))
+        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))), errorState: .constant(.None),  room: (RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)))
     }
 }
