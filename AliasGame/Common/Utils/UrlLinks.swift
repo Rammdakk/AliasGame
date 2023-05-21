@@ -6,8 +6,8 @@
 //
 
 class UrlLinks {
-    // Base url made by ngrok, just for testing.
-    static let BASE_URL = "https://8942-188-35-131-222.eu.ngrok.io"
+
+    static let BASE_URL = "http://127.0.0.1:8080"
     
     // Auth
     static let LOGIN = "\(BASE_URL)/users/login"
@@ -20,6 +20,7 @@ class UrlLinks {
     static let JOIN_ROOM = "\(BASE_URL)/game-rooms/join-room"
     static let EDIT_ROOM = "\(BASE_URL)/game-rooms/change-setting"
     static let LEAVE_ROOM = "\(BASE_URL)/game-rooms/leave-room"
+    static let PASS_ADMIN = "\(BASE_URL)/game-rooms/pass-admin-status"
     
     // Teams
     static let TEAMS_LIST = "\(BASE_URL)/teams/list-teams"

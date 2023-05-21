@@ -86,7 +86,7 @@ class GameRoomScreenViewModel: ObservableObject {
     }
     
     func joinTeam(teamID:String, roomID:String) {
-         guard var joinTeam = URL(string: UrlLinks.JOIN_TEAM) else {
+        guard let joinTeam = URL(string: UrlLinks.JOIN_TEAM) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
@@ -99,6 +99,33 @@ class GameRoomScreenViewModel: ObservableObject {
         let parameters = ["teamId": teamID] as [String : Any]
         print(joinTeam)
         NetworkManager().makeNonReturningRequest(url: joinTeam, method: .post, parameters: parameters, bearerToken: bearerToken) { result in
+            switch result {
+            case .success:
+                self.loadTeams(roomID: roomID)
+                return
+            case .failure(let error):
+                // Handle the error
+                print(error)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
+            }
+        }
+    }
+    
+    func passAdmin(newAdminID: String, roomID:String) {
+        guard let passAdminURL = URL(string: UrlLinks.PASS_ADMIN) else {
+            self.errorState = .Error(message: "URL creation error")
+            return
+        }
+
+        guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
+            self.errorState = .Error(message: "Access denied")
+            return
+        }
+        
+        let parameters = ["gameRoomId": roomID, "newAdminId": newAdminID] as [String : Any]
+        NetworkManager().makeNonReturningRequest(url: passAdminURL, method: .post, parameters: parameters, bearerToken: bearerToken) { result in
             switch result {
             case .success:
                 self.loadTeams(roomID: roomID)

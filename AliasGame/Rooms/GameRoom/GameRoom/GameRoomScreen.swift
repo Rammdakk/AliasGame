@@ -75,9 +75,7 @@ struct GameRoomScreen: View {
                         navigationState = newState
                     }
                 }.onReceive(viewModel.$teams){ teams in
-//                    withAnimation{
-//                        teamMocks = teams
-//                    }
+                        teamMocks = teams
                 }
         }
     
@@ -100,7 +98,7 @@ struct GameRoomScreen: View {
             }
             .listStyle(.plain)
             .background(Color.red.ignoresSafeArea()).onAppear{
-                //viewModel.loadTeams(roomID: room.id)
+                viewModel.loadTeams(roomID: room.id)
             }
         }
     }
