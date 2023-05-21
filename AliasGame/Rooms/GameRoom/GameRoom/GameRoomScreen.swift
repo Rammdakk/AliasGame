@@ -16,11 +16,16 @@
 
 import SwiftUI
 
-struct PlayerModel: Codable {
-    var name: String
-}
-
 struct GameRoomScreen: View {
+    
+    @StateObject private var viewModel: GameRoomScreenViewModel
+
+    init(navigationState: Binding<NavigationState>, errorState: Binding<ErrorState>, room: RoomModel) {
+        _viewModel = StateObject(wrappedValue: GameRoomScreenViewModel(navigationState: navigationState.wrappedValue))
+        self._navigationState = navigationState
+        self._errorState = errorState
+        self.room = room
+    }
     
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
@@ -28,11 +33,10 @@ struct GameRoomScreen: View {
     
     @State private var currentRoom: RoomModel = RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)
     @State private var showSettings = false
-    @State var playersMock = [PlayerModel(name: "Bob"),
-                              PlayerModel(name: "not Bob"),
-                              PlayerModel(name: "definitely not Bob"),
-                              PlayerModel(name: "Amogus"),
-                              PlayerModel(name: "Ivan")]
+    @State private var teamMocks = [TeamModel(id: "123", name: "F1 team",
+                                        users: [TeamUser(id: "1", name: "User1")]),
+                              TeamModel(id: "456", name: "F3 team",
+                                        users: [TeamUser(id: "2", name: "User2"), TeamUser(id: "3", name: "User3")])]
     
     var body: some View {
         ZStack {
@@ -40,6 +44,19 @@ struct GameRoomScreen: View {
             mainView
                 .sheet(isPresented: $showSettings) {
                         SettingsSheet(show: $showSettings.animation(), room: $currentRoom, errorState: $errorState)
+                    }
+                }.onReceive(viewModel.$errorState) { newState in
+                    if case .Succes(_) = errorState {
+                        if case .None = newState {
+                            return
+                        }
+                    }
+                    withAnimation{
+                        errorState = newState
+                    }
+                }.onReceive(viewModel.$navigationState){ newState in
+                    withAnimation{
+                        navigationState = newState
                     }
                 }
         }
@@ -54,8 +71,8 @@ struct GameRoomScreen: View {
                     currentRoom = room
                 }
             List{
-                ForEach(playersMock, id: \.name) { item in
-                    player(model: item)
+                ForEach(teamMocks, id: \.id) { item in
+                    team(model: item)
                     
                 }.onDelete(perform: delete)
             }
@@ -65,7 +82,7 @@ struct GameRoomScreen: View {
     }
     
     func delete(at offsets: IndexSet) {
-        playersMock.remove(atOffsets: offsets)
+        teamMocks.remove(atOffsets: offsets)
     }
     
     var header: some View {
@@ -75,11 +92,17 @@ struct GameRoomScreen: View {
                         .font(.system(size: 30, weight: .heavy))
                         .foregroundColor(.black).padding(.horizontal)
                     Spacer()
-                    Button(action: {showSettings.toggle()}){
-                        Image(systemName: "gearshape.fill")
-                            .font(.title)
-                            .foregroundColor(.black)
-                            .padding()
+                    VStack {
+                        Button(action: {showSettings.toggle()}){
+                            Image(systemName: "gearshape.fill")
+                                .font(.title)
+                                .foregroundColor(.black)
+                        }
+                        Button(action: {viewModel.leaveRoom(roomID: room.id)}){
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .font(.title)
+                                .foregroundColor(.black)
+                        }.padding()
                     }
                     
                 }.padding()
@@ -99,10 +122,10 @@ struct GameRoomScreen: View {
                 }
                 .padding()
                 .textSelection(.enabled)
-    }.padding(.vertical)
+        }.padding(.vertical)
 }
 
-func player(model: PlayerModel) -> some View {
+func team(model: TeamModel) -> some View {
     return ZStack(alignment: .leading) {
         Rectangle()
             .foregroundColor(.white)
@@ -128,8 +151,8 @@ func player(model: PlayerModel) -> some View {
 }
 }
 
-struct GameRoomScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))), errorState: .constant(.None),  room: (RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)))
-    }
-}
+//struct GameRoomScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))), errorState: .constant(.None),  room: (RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)))
+//    }
+//}

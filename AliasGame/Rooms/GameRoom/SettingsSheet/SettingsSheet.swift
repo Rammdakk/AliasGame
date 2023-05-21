@@ -62,6 +62,12 @@ struct SettingsSheet: View {
                 }
             }
             withAnimation{
+                if case .Error(_) = newState {
+                    errorState = .None
+                    errorState = newState
+                    show = false
+                    return
+                }
                 errorState = newState
             }
         }.onReceive(viewModel.$newRoom){newRoom in

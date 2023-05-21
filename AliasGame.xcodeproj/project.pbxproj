@@ -28,6 +28,8 @@
 		A8D585422A10DBC40078A0D7 /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */; };
 		A8D585462A10DF870078A0D7 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585452A10DF870078A0D7 /* ErrorView.swift */; };
 		A8D585482A10DF970078A0D7 /* ErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585472A10DF970078A0D7 /* ErrorState.swift */; };
+		A8E31C8C2A1A0EBE00955E63 /* GameRoomScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E31C8B2A1A0EBE00955E63 /* GameRoomScreenViewModel.swift */; };
+		A8E31C902A1A114700955E63 /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E31C8F2A1A114700955E63 /* TeamModel.swift */; };
 		E32B2FCB2A11735E00B163AD /* RoomsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */; };
 		E32B2FCD2A11736C00B163AD /* RoomCreationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */; };
 		E32B2FD02A16B63B00B163AD /* GameRoomScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */; };
@@ -58,6 +60,8 @@
 		A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 		A8D585452A10DF870078A0D7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A8D585472A10DF970078A0D7 /* ErrorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorState.swift; sourceTree = "<group>"; };
+		A8E31C8B2A1A0EBE00955E63 /* GameRoomScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomScreenViewModel.swift; sourceTree = "<group>"; };
+		A8E31C8F2A1A114700955E63 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		E32B2FCA2A11735E00B163AD /* RoomsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsScreen.swift; sourceTree = "<group>"; };
 		E32B2FCC2A11736C00B163AD /* RoomCreationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreationScreen.swift; sourceTree = "<group>"; };
 		E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoomScreen.swift; sourceTree = "<group>"; };
@@ -208,6 +212,25 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		A8E31C8D2A1A0EED00955E63 /* SettingsSheet */ = {
+			isa = PBXGroup;
+			children = (
+				E32B2FD12A16B69500B163AD /* SettingsSheet.swift */,
+				A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */,
+			);
+			path = SettingsSheet;
+			sourceTree = "<group>";
+		};
+		A8E31C8E2A1A0F0B00955E63 /* GameRoom */ = {
+			isa = PBXGroup;
+			children = (
+				E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */,
+				A8E31C8B2A1A0EBE00955E63 /* GameRoomScreenViewModel.swift */,
+				A8E31C8F2A1A114700955E63 /* TeamModel.swift */,
+			);
+			path = GameRoom;
+			sourceTree = "<group>";
+		};
 		E32B2FC92A11734800B163AD /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,9 +244,8 @@
 		E32B2FCE2A16B62400B163AD /* GameRoom */ = {
 			isa = PBXGroup;
 			children = (
-				E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */,
-				E32B2FD12A16B69500B163AD /* SettingsSheet.swift */,
-				A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */,
+				A8E31C8E2A1A0F0B00955E63 /* GameRoom */,
+				A8E31C8D2A1A0EED00955E63 /* SettingsSheet */,
 			);
 			path = GameRoom;
 			sourceTree = "<group>";
@@ -305,6 +327,7 @@
 				A87C97D12A13D77F00890735 /* NetworkManager.swift in Sources */,
 				E32B2FCB2A11735E00B163AD /* RoomsScreen.swift in Sources */,
 				E32B2FD22A16B69500B163AD /* SettingsSheet.swift in Sources */,
+				A8E31C8C2A1A0EBE00955E63 /* GameRoomScreenViewModel.swift in Sources */,
 				A8A5BB1A2A0FA56D00D1621E /* AuthViewModel.swift in Sources */,
 				E32B2FCD2A11736C00B163AD /* RoomCreationScreen.swift in Sources */,
 				A846B9072A168BB9003B8257 /* RoomCreationViewModel.swift in Sources */,
@@ -314,6 +337,7 @@
 				A87C97D62A13EAB700890735 /* MainScreenViewModel.swift in Sources */,
 				A8D585462A10DF870078A0D7 /* ErrorView.swift in Sources */,
 				A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */,
+				A8E31C902A1A114700955E63 /* TeamModel.swift in Sources */,
 				A8A5BB182A0FA53900D1621E /* RegisterResponse.swift in Sources */,
 				A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */,
 				E32B2FD02A16B63B00B163AD /* GameRoomScreen.swift in Sources */,
