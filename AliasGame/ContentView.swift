@@ -17,19 +17,19 @@ struct ContentView: View {
             switch navigationState {
                 
             case .Auth:
-                AuthScreen(navigationState: $navigationState.animation(), errorState: $errorState)
+                AuthScreen(navigationState: $navigationState.animation(), errorState: $errorState.animation())
                 
             case .Main:
-                MainScreen(navigationState: $navigationState.animation(), errorState: $errorState)
+                MainScreen(navigationState: $navigationState.animation(), errorState: $errorState.animation())
                 
             case .RoomCreation:
-                RoomCreationScreen(navigationState: $navigationState.animation(), errorState: $errorState)
+                RoomCreationScreen(navigationState: $navigationState.animation(), errorState: $errorState.animation())
                 
             case .Rooms:
-                RoomsScreen(navigationState: $navigationState.animation(), errorState: $errorState)
+                RoomsScreen(navigationState: $navigationState.animation(), errorState: $errorState.animation())
                 
             case .GameRoom(let room):
-                GameRoomScreen(navigationState: $navigationState.animation(), errorState: $errorState, room: room)
+                GameRoomScreen(navigationState: $navigationState.animation(), errorState: $errorState.animation(), room: room)
 //
 //            case .Game:
 //                GameScreen(navigationState: $navigationState)
