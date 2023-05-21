@@ -14,11 +14,15 @@ struct RoomCreationScreen: View {
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
     
+    
     @State private var name: String = ""
     @State private var isPrivate = false
     @State private var code: String = ""
     @State private var numberOfRoudns: Double = 1
-    @State private var numberOfTeams: Double = 2
+    @State private var numberOfTeams: Int = 2
+    @State private var teams = ["team", "team2"]//[String]()
+    @State private var showingAlert = false
+    @State private var teamName: String = ""
     
     var body: some View {
         NavigationView {
@@ -45,8 +49,38 @@ struct RoomCreationScreen: View {
                     .padding(.horizontal, 10)
                     .padding(.top, 40)
                     
+                    HStack {
+                        Text("Teams: \(teams.count)")
+                            .font(.system(size: 25, weight: .bold)).padding()
+                        Spacer()
+                        Button(action: {showingAlert.toggle()} ) {
+                            Text("+")
+                                .font(.system(size: 25, weight: .bold))
+                                .padding(.horizontal)
+                                .padding(.vertical,10)
+                                .background(.red)
+                                .cornerRadius(30)
+                                .foregroundColor(.white)
+                            
+                        }.padding()
+                    }
+                    .background(.white)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 10)
+                    .padding(.top, 10)
+                    
+                    List {
+                        ForEach($teams, id: \.self) { item in
+                            team(model: item.wrappedValue)
+                        }.onDelete(perform: removeTeam)
+                    }
+                    .listStyle(.plain)
+                    .background(Color.red.ignoresSafeArea())
+                    .padding(.horizontal, -8)
+                    
+                    
                     Spacer()
-                    button(text: "Done", action: {viewModel.createRoom(name: name, isPrivate: isPrivate)})
+                    button(text: "Done", action: {viewModel.createRoom(name: name, isPrivate: isPrivate)}, width: 150)
                         .padding(.bottom,20)
                 }
                 
@@ -60,7 +94,13 @@ struct RoomCreationScreen: View {
                 }
             }
             
-        }.onReceive(viewModel.$errorState) { newState in
+        }
+        .alert("New team", isPresented: $showingAlert) {
+            TextField("Enter team name", text: $teamName)
+            Button("Create", action: addNewTeam)
+            Button("Cancel", role: .cancel, action: {})
+        }
+        .onReceive(viewModel.$errorState) { newState in
             if case .Succes(_) = errorState {
                 if case .None = newState {
                     return
@@ -76,13 +116,39 @@ struct RoomCreationScreen: View {
         }
     }
     
-    private func button(text: String, action: @escaping () -> Void) -> some View {
+    func addNewTeam(){
+        teams.append(teamName)
+        teamName = ""
+    }
+    
+    func removeTeam(at offsets: IndexSet) {
+        teams.remove(atOffsets: offsets)
+    }
+    
+    func team(model: String) -> some View {
+        return ZStack(alignment: .leading) {
+            Rectangle()
+                .foregroundColor(.white)
+                .frame(height: 50)
+                .cornerRadius(10)
+            VStack {
+                    Text(model)
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+            }
+            .padding(.leading,20)
+        }
+        .listRowBackground(Color.red)
+        .listRowSeparator(.hidden)
+    }
+    
+    private func button(text: String, action: @escaping () -> Void, width: CGFloat) -> some View {
         return Button(action: action){
             HStack(alignment: .center, spacing: 10) {
                 Text(text)
                     .font(.system(size: 25, weight: .bold))
                 
-            }.frame(width: 150,height: 50)
+            }.frame(width: width,height: 50)
                 .background(.white)
                 .cornerRadius(20)
                 .foregroundColor(.black)
