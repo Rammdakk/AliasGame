@@ -58,6 +58,10 @@ struct GameRoomScreen: View {
                     withAnimation{
                         navigationState = newState
                     }
+                }.onReceive(viewModel.$teams){ teams in
+                    withAnimation{
+                        teamMocks = teams
+                    }
                 }
         }
     
@@ -77,7 +81,9 @@ struct GameRoomScreen: View {
                 }.onDelete(perform: delete)
             }
             .listStyle(.plain)
-            .background(Color.red.ignoresSafeArea())
+            .background(Color.red.ignoresSafeArea()).onAppear{
+                viewModel.loadTeams(roomID: room.id)
+            }
         }
     }
     
@@ -137,10 +143,16 @@ func team(model: TeamModel) -> some View {
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.black)
                 Spacer()
-                Text("0")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.black)
-                    .padding()
+                Button (action: {
+                    viewModel.joinTeam(teamID: model.id, roomID: room.id)}) {
+                    Text("Join")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+                        .padding(10)
+                        .background(.green)
+                        .cornerRadius(10)
+                        .padding(.trailing,20)
+                }
             }
             
         }
