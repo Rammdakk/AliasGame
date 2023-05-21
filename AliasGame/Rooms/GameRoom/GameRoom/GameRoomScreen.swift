@@ -15,11 +15,12 @@
 
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct GameRoomScreen: View {
     
     @StateObject private var viewModel: GameRoomScreenViewModel
-
+    
     init(navigationState: Binding<NavigationState>, errorState: Binding<ErrorState>, room: RoomModel) {
         _viewModel = StateObject(wrappedValue: GameRoomScreenViewModel(navigationState: navigationState.wrappedValue))
         self._navigationState = navigationState
@@ -59,25 +60,25 @@ struct GameRoomScreen: View {
             Color.red.ignoresSafeArea()
             mainView
                 .sheet(isPresented: $showSettings) {
-                        SettingsSheet(show: $showSettings.animation(), room: $currentRoom, errorState: $errorState)
-                    }
-                }.onReceive(viewModel.$errorState) { newState in
-                    if case .Succes(_) = errorState {
-                        if case .None = newState {
-                            return
-                        }
-                    }
-                    withAnimation{
-                        errorState = newState
-                    }
-                }.onReceive(viewModel.$navigationState){ newState in
-                    withAnimation{
-                        navigationState = newState
-                    }
-                }.onReceive(viewModel.$teams){ teams in
-                        teamMocks = teams
+                    SettingsSheet(show: $showSettings.animation(), room: $currentRoom, errorState: $errorState)
                 }
+        }.onReceive(viewModel.$errorState) { newState in
+            if case .Succes(_) = errorState {
+                if case .None = newState {
+                    return
+                }
+            }
+            withAnimation{
+                errorState = newState
+            }
+        }.onReceive(viewModel.$navigationState){ newState in
+            withAnimation{
+                navigationState = newState
+            }
+        }.onReceive(viewModel.$teams){ teams in
+            teamMocks = teams
         }
+    }
     
     
     var mainView: some View {
@@ -109,41 +110,46 @@ struct GameRoomScreen: View {
     
     var header: some View {
         VStack(alignment: .leading){
-                HStack {
-                    Text("Room name: \(currentRoom.name)" )
-                        .font(.system(size: 30, weight: .heavy))
-                        .foregroundColor(.black).padding(.horizontal)
-                    Spacer()
-                    VStack {
-                        Button(action: {showSettings.toggle()}){
-                            Image(systemName: "gearshape.fill")
-                                .font(.title)
-                                .foregroundColor(.black)
-                        }
-                        Button(action: {viewModel.leaveRoom(roomID: room.id)}){
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                                .font(.title)
-                                .foregroundColor(.black)
-                        }.padding()
+            HStack {
+                Text("Room name: \(currentRoom.name)" )
+                    .font(.system(size: 30, weight: .heavy))
+                    .foregroundColor(.black).padding(.horizontal)
+                Spacer()
+                VStack {
+                    Button(action: {showSettings.toggle()}){
+                        Image(systemName: "gearshape.fill")
+                            .font(.title)
+                            .foregroundColor(.black)
                     }
-                    
-                }.padding()
-                
-                VStack(alignment:.leading, spacing: 5){
-                    Text("ID: \(currentRoom.id)")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.black)
-                        .padding(.horizontal)
-                  // В текущей реализации бэка код будет приходить всегда, даже если комната public
-                    Text("Code: \(currentRoom.invitationCode ?? "Room is public")")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.black)
-                        .padding(.horizontal)
-                    
-                    
+                    Button(action: {viewModel.leaveRoom(roomID: room.id)}){
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .font(.title)
+                            .foregroundColor(.black)
+                    }.padding()
                 }
-                .padding()
-                .textSelection(.enabled)
+                
+            }.padding()
+            
+            VStack(alignment:.leading, spacing: 5){
+                Text("ID: \(currentRoom.id)")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundColor(.black)
+                    .padding(.horizontal)
+                // В текущей реализации бэка код будет приходить всегда, даже если комната public
+                Text("Code: \(currentRoom.invitationCode ?? "Room is public")")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundColor(.black)
+                    .padding(.horizontal)
+                    .onTapGesture {
+                        let clipboard = UIPasteboard.general
+                        clipboard.setValue(currentRoom.invitationCode ?? "", forPasteboardType: UTType.plainText.identifier)
+                        errorState = .Succes(message: "Code coppied")
+                    }
+                
+                
+            }
+            .padding()
+            //.textSelection(.enabled)
         }.padding(.vertical)
     }
     
@@ -204,8 +210,8 @@ struct GameRoomScreen: View {
     }
 }
 
-//struct GameRoomScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))), errorState: .constant(.None),  room: (RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)))
-//    }
-//}
+struct GameRoomScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        GameRoomScreen(navigationState: .constant(.GameRoom(room: RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10))), errorState: .constant(.None),  room: (RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)))
+    }
+}
