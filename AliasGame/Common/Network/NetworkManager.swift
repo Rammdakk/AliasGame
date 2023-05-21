@@ -41,7 +41,7 @@ class NetworkManager {
               if httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 {
                   completion(.success(()))
               } else {
-                  completion(.failure(.invalidResponse("Request failed with status code: \(httpResponse.statusCode)")))
+                  completion(.failure(.invalidResponse(self.getErrorMessage(code: httpResponse.statusCode))))
               }
           }.resume()
       }
@@ -92,9 +92,28 @@ class NetworkManager {
                     completion(.success(nil))
                 }
             } else {
-                completion(.failure(.invalidResponse("Request failed with status code: \(httpResponse.statusCode)")))
+                completion(.failure(.invalidResponse(self.getErrorMessage(code: httpResponse.statusCode))))
             }
         }.resume()
+    }
+    
+    func getErrorMessage(code: Int) -> String {
+        let errorMessage: String
+        switch code {
+            case 400:
+                errorMessage = "Bad Request"
+            case 401:
+                errorMessage = "Unauthorized."
+            case 403:
+                errorMessage = "Forbidden. You don't have rights to do it."
+            case 404:
+                errorMessage = "Not Found"
+            case 500:
+                errorMessage = "Internal Server Error"
+            default:
+                errorMessage = "Request failed with status code: \(code)"
+        }
+        return errorMessage
     }
 }
 
