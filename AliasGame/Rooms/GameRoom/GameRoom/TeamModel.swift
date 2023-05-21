@@ -11,7 +11,7 @@ struct TeamModel: Codable {
     let users: [TeamUser]
 }
 
-struct TeamUser: Codable {
+struct TeamUser: Codable, Hashable {
     let id: String
     let name: String
 }
