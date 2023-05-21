@@ -33,10 +33,26 @@ struct GameRoomScreen: View {
     
     @State private var currentRoom: RoomModel = RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)
     @State private var showSettings = false
-    @State private var teamMocks = [TeamModel(id: "123", name: "F1 team",
-                                        users: [TeamUser(id: "1", name: "User1")]),
-                              TeamModel(id: "456", name: "F3 team",
-                                        users: [TeamUser(id: "2", name: "User2"), TeamUser(id: "3", name: "User3")])]
+    @State private var teamMocks = [
+        TeamModel(
+            id: "123",
+            name: "F1 team",
+            users: [TeamUser(id: "1", name: "User1")]
+        ),
+        TeamModel(
+            id: "456",
+            name: "F3 team",
+            users: [
+                TeamUser(id: "2", name: "User2"),
+                TeamUser(id: "3", name: "User3")
+            ]
+        ),
+        TeamModel(
+            id: "789",
+            name: "F4 team",
+            users: []
+        )
+    ]
     
     var body: some View {
         ZStack {
@@ -59,9 +75,9 @@ struct GameRoomScreen: View {
                         navigationState = newState
                     }
                 }.onReceive(viewModel.$teams){ teams in
-                    withAnimation{
-                        teamMocks = teams
-                    }
+//                    withAnimation{
+//                        teamMocks = teams
+//                    }
                 }
         }
     
@@ -76,13 +92,15 @@ struct GameRoomScreen: View {
                 }
             List{
                 ForEach(teamMocks, id: \.id) { item in
-                    team(model: item)
+                    Team(model: item) {
+                        viewModel.joinTeam(teamID: item.id, roomID: room.id)
+                    }
                     
                 }.onDelete(perform: delete)
             }
             .listStyle(.plain)
             .background(Color.red.ignoresSafeArea()).onAppear{
-                viewModel.loadTeams(roomID: room.id)
+                //viewModel.loadTeams(roomID: room.id)
             }
         }
     }
@@ -129,38 +147,63 @@ struct GameRoomScreen: View {
                 .padding()
                 .textSelection(.enabled)
         }.padding(.vertical)
-}
-
-func team(model: TeamModel) -> some View {
-    return ZStack(alignment: .leading) {
-        Rectangle()
-            .foregroundColor(.white)
-            .frame(height: 50)
-            .cornerRadius(10)
-        VStack {
-            HStack{
-                Text(model.name)
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.black)
-                Spacer()
-                Button (action: {
-                    viewModel.joinTeam(teamID: model.id, roomID: room.id)}) {
+    }
+    
+    struct Team: View {
+        
+        let model: TeamModel
+        let joinAction: () -> Void
+        @State var isExpanded = false
+        
+        var body: some View {
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+                        .onTapGesture {
+                            isExpanded.toggle()
+                        }
+                    Text(model.name)
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+                    Spacer()
                     Text("Join")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.black)
+                        .onTapGesture {
+                            joinAction()
+                        }
                         .padding(10)
                         .background(.green)
                         .cornerRadius(10)
-                        .padding(.trailing,20)
+                }
+                
+                if isExpanded {
+                    if model.users.isEmpty {
+                        Text("No users")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.gray)
+                    } else {
+                        ForEach(model.users, id: \.self) { teamUser in
+                            Text(teamUser.name)
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.black)
+                        }
+                    }
                 }
             }
-            
+            .padding(.vertical, 10)
+            .padding(.horizontal, 20)
+            .background(
+                Rectangle()
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            )
+            .listRowBackground(Color.red)
+            .listRowSeparator(.hidden)
         }
-        .padding(.leading,20)
     }
-    .listRowBackground(Color.red)
-    .listRowSeparator(.hidden)
-}
 }
 
 //struct GameRoomScreen_Previews: PreviewProvider {
