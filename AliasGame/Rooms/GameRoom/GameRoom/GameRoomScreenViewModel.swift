@@ -86,7 +86,7 @@ class GameRoomScreenViewModel: ObservableObject {
     }
     
     func joinTeam(teamID:String, roomID:String) {
-         guard var loadTeamsURl = URL(string: UrlLinks.JOIN_TEAM) else {
+         guard var joinTeam = URL(string: UrlLinks.JOIN_TEAM) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
@@ -96,10 +96,9 @@ class GameRoomScreenViewModel: ObservableObject {
             return
         }
         
-        let queryItems = [URLQueryItem(name: "gameRoomId", value: roomID)]
-        loadTeamsURl.append(queryItems: queryItems)
-        
-        NetworkManager().makeNonReturningRequest(url: loadTeamsURl, method: .get, parameters: nil, bearerToken: bearerToken) { result in
+        let parameters = ["teamId": teamID] as [String : Any]
+        print(joinTeam)
+        NetworkManager().makeNonReturningRequest(url: joinTeam, method: .post, parameters: parameters, bearerToken: bearerToken) { result in
             switch result {
             case .success:
                 self.loadTeams(roomID: roomID)
