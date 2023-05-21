@@ -55,8 +55,7 @@ class GameRoomScreenViewModel: ObservableObject {
     }
     
     func loadTeams(roomID:String) {
- 
-        guard var leaveRoomUrl = URL(string: UrlLinks.TEAMS_LIST) else {
+         guard var loadTeamsURl = URL(string: UrlLinks.TEAMS_LIST) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
@@ -67,15 +66,43 @@ class GameRoomScreenViewModel: ObservableObject {
         }
         
         let queryItems = [URLQueryItem(name: "gameRoomId", value: roomID)]
-        leaveRoomUrl.append(queryItems: queryItems)
+        loadTeamsURl.append(queryItems: queryItems)
         
-        NetworkManager().makeRequest(url: leaveRoomUrl, method: .get, parameters: nil, bearerToken: bearerToken) { (result: Result<[TeamModel]?, NetworkError>) in
+        NetworkManager().makeRequest(url: loadTeamsURl, method: .get, parameters: nil, bearerToken: bearerToken) { (result: Result<[TeamModel]?, NetworkError>) in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.teams = data ?? []
-                    self.navigationState = .Main
                 }
+                return
+            case .failure(let error):
+                // Handle the error
+                print(error)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
+            }
+        }
+    }
+    
+    func joinTeam(teamID:String, roomID:String) {
+         guard var loadTeamsURl = URL(string: UrlLinks.JOIN_TEAM) else {
+            self.errorState = .Error(message: "URL creation error")
+            return
+        }
+
+        guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
+            self.errorState = .Error(message: "Access denied")
+            return
+        }
+        
+        let queryItems = [URLQueryItem(name: "gameRoomId", value: roomID)]
+        loadTeamsURl.append(queryItems: queryItems)
+        
+        NetworkManager().makeNonReturningRequest(url: loadTeamsURl, method: .get, parameters: nil, bearerToken: bearerToken) { result in
+            switch result {
+            case .success:
+                self.loadTeams(roomID: roomID)
                 return
             case .failure(let error):
                 // Handle the error
