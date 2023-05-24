@@ -24,6 +24,7 @@ class UrlLinks {
     static let PASS_ADMIN = "\(BASE_URL)/game-rooms/pass-admin-status"
     
     // Teams
+    static let ADD_TEAM = "\(BASE_URL)/teams/create-team"
     static let TEAMS_LIST = "\(BASE_URL)/teams/list-teams"
     static let JOIN_TEAM = "\(BASE_URL)/teams/join-team"
 }
