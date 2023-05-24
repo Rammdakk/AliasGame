@@ -12,6 +12,7 @@ struct MainScreen: View {
     @StateObject private var viewModel = MainScreenViewModel()
     @Binding var navigationState: NavigationState
     @Binding var errorState: ErrorState
+    @State private var name: String = "Ratata"
     
     var body: some View {
         ZStack {
@@ -37,6 +38,15 @@ struct MainScreen: View {
     
     var buttons: some View {
         VStack(spacing: 10) {
+            Text("Hi, \(name)!")
+                .font(.system(size: 25, weight: .bold)).padding(.top, 30).foregroundColor(.white).onTapGesture {
+                    viewModel.profile()
+                }.onReceive(viewModel.$name) { newName in
+                    print(newName)
+                    name = newName
+                }.onAppear{
+                    viewModel.profile()
+                }
             Spacer()
             button(text: "Create room", action: {navigationState = .RoomCreation})
             button(text: "Join room", action: {navigationState = .Rooms})
