@@ -20,7 +20,7 @@ struct RoomCreationScreen: View {
     @State private var code: String = ""
     @State private var numberOfRoudns: Double = 1
     @State private var numberOfTeams: Int = 2
-    @State private var teams = ["team", "team2"]//[String]()
+    @State private var teams = [String]()
     @State private var showingAlert = false
     @State private var teamName: String = ""
     
@@ -80,7 +80,7 @@ struct RoomCreationScreen: View {
                     
                     
                     Spacer()
-                    button(text: "Done", action: {viewModel.createRoom(name: name, isPrivate: isPrivate)}, width: 150)
+                    button(text: "Done", action: {viewModel.createRoom(name: name, isPrivate: isPrivate, teams: teams)}, width: 150)
                         .padding(.bottom,20)
                 }
                 
@@ -117,7 +117,11 @@ struct RoomCreationScreen: View {
     }
     
     func addNewTeam(){
-        teams.append(teamName)
+        if (teamName.count < 2) {
+            errorState = .Error(message: "Too short team name")
+        } else {
+            teams.append(teamName)
+        }
         teamName = ""
     }
     
