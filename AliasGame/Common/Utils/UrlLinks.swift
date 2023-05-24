@@ -13,6 +13,7 @@ class UrlLinks {
     static let LOGIN = "\(BASE_URL)/users/login"
     static let REGISTER = "\(BASE_URL)/users/register"
     static let LOGOUT = "\(BASE_URL)/users/logout"
+    static let PROFILE = "\(BASE_URL)/users/profile"
     
     // Rooms
     static let CREATE_ROOM = "\(BASE_URL)/game-rooms/create"
