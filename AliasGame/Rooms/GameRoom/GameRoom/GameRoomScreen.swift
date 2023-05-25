@@ -104,6 +104,26 @@ struct GameRoomScreen: View {
             .onAppear {
                 viewModel.loadTeams(roomID: room.id)
             }
+            if (viewModel.isAdmin)
+            {
+                HStack{
+                    Button(action: {viewModel.changeRoundStatus(roomID: room.id, url: UrlLinks.START_ROUND) }) {
+                        Spacer()
+                       Text("Start round")
+                        Spacer()
+                    } .padding(10) .background(.white)
+                        .cornerRadius(10)
+                        .foregroundColor(.black)
+                    
+                    Button(action: {viewModel.changeRoundStatus(roomID: room.id, url: UrlLinks.PAUSE_ROUND) }) {
+                        Spacer()
+                       Text("Pause round")
+                        Spacer()
+                    } .padding(10).background(.white)
+                        .cornerRadius(10)
+                        .foregroundColor(.black)
+                }.padding(20)
+            }
         }
     }
     
@@ -124,7 +144,7 @@ struct GameRoomScreen: View {
                     .padding(.horizontal)
                 Spacer()
                 VStack {
-                    if (viewModel.showSettings) {
+                    if (viewModel.isAdmin) {
                         Button(action: { showSettings.toggle() }) {
                             Image(systemName: "gearshape.fill")
                                 .font(.title)
