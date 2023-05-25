@@ -29,4 +29,8 @@ class UrlLinks {
     static let TEAMS_LIST = "\(BASE_URL)/teams/list-teams"
     static let JOIN_TEAM = "\(BASE_URL)/teams/join-team"
     static let LEAVE_TEAM = "\(BASE_URL)/teams/leave-team"
+    
+    // Round
+    static let START_ROUND = "\(BASE_URL)/round/start"
+    static let PAUSE_ROUND = "\(BASE_URL)/round/pause"
 }

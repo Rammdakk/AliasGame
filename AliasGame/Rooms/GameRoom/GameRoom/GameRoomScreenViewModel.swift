@@ -14,17 +14,17 @@ class GameRoomScreenViewModel: ObservableObject {
     @Published var errorState: ErrorState = .None
     @Published var navigationState: NavigationState
     @Published var teams: [TeamModel] = []
-    @State var showSettings = false
+    @State var isAdmin = false
     
     // MARK: - Initialization
     
     init(navigationState: NavigationState, roomAdminID: String) {
         // Initialize the ViewModel with the provided navigation state
-        showSettings = (UserDefaults.standard.string(forKey: UserDefaultsKeys.USER_ID_KEY) == roomAdminID)
+        isAdmin = (UserDefaults.standard.string(forKey: UserDefaultsKeys.USER_ID_KEY) == roomAdminID)
         self.errorState = .None
         self.navigationState = navigationState
         self.teams = []
-        print(showSettings)
+        print(isAdmin)
         
     }
     
@@ -204,6 +204,41 @@ class GameRoomScreenViewModel: ObservableObject {
             case .success:
                 // If the request is successful, call loadTeams to update the teams array
                 self.loadTeams(roomID: roomID)
+                return
+            case .failure(let error):
+                // Handle the error
+                print(error)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
+            }
+        }
+    }
+    
+    func changeRoundStatus(roomID: String, url: String) {
+        // Method for passing the admin role to another user
+        
+        guard let startRoundUrl = URL(string: url) else {
+            // Check if the URL creation fails, set the errorState to .Error with a message and return
+            self.errorState = .Error(message: "URL creation error")
+            return
+        }
+
+        guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
+            // Check if the bearer token is not available, set the errorState to .Error with a message and return
+            self.errorState = .Error(message: "Access denied")
+            return
+        }
+        
+        let parameters = ["gameRoomId": roomID] as [String : Any]
+        NetworkManager().makeRequest(url: startRoundUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<RoundInfo?, NetworkError>) in
+            switch result {
+            case .success(let round):
+                DispatchQueue.main.async {
+                    self.errorState = .Succes(message: "Round state: \(round?.state ?? "undef")")
+                }
+                // If the request is successful, call loadTeams to update the teams array
+                
                 return
             case .failure(let error):
                 // Handle the error
