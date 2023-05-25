@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoomCreationScreen: View {
+    // Represents the screen for creating a game room
     
     @StateObject private var viewModel = RoomCreationViewModel()
     
@@ -24,12 +25,15 @@ struct RoomCreationScreen: View {
     @State private var showingAlert = false
     @State private var teamName: String = ""
     
+    // MARK: - View
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
                 Color.red.ignoresSafeArea()
                 VStack{
                     VStack(spacing: 20) {
+                        // Game name input
                         VStack(alignment: .leading){
                             Text("Enter game name")
                                 .font(.system(size: 25, weight: .bold))
@@ -39,6 +43,7 @@ struct RoomCreationScreen: View {
                             .background(.white)
                             .cornerRadius(10)
                         
+                        // Room privacy toggle
                         Toggle("Make room private", isOn: $isPrivate.animation())
                             .toggleStyle(SwitchToggleStyle(tint: .red))
                             .font(.system(size: 25, weight: .bold))
@@ -49,6 +54,7 @@ struct RoomCreationScreen: View {
                     .padding(.horizontal, 10)
                     .padding(.top, 40)
                     
+                    // Team count and add team button
                     HStack {
                         Text("Teams: \(teams.count)")
                             .font(.system(size: 25, weight: .bold)).padding()
@@ -69,6 +75,7 @@ struct RoomCreationScreen: View {
                     .padding(.horizontal, 10)
                     .padding(.top, 10)
                     
+                    // List of teams
                     List {
                         ForEach($teams, id: \.self) { item in
                             team(model: item.wrappedValue)
@@ -115,6 +122,8 @@ struct RoomCreationScreen: View {
             }
         }
     }
+    
+    // MARK: - Functions
     
     func addNewTeam(){
         if (teamName.count < 2) {

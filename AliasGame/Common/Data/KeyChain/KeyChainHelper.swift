@@ -13,6 +13,9 @@ final class KeychainHelper {
     
     private init() {}
     
+    // MARK: - Save and Update
+    
+    // Save data to Keychain
     func save(_ data: Data, service: String, account: String) {
         let query = [
             kSecValueData: data,
@@ -20,7 +23,11 @@ final class KeychainHelper {
             kSecAttrService: service,
             kSecAttrAccount: account
         ] as [CFString : Any] as CFDictionary
+        
+        // Add or update item in Keychain
         var status = SecItemAdd(query, nil)
+        
+        // Check if item already exists or needs to be updated
         if status == errSecDuplicateItem || status == -25299 {
             let query = [
                 kSecAttrService: service,
@@ -33,11 +40,15 @@ final class KeychainHelper {
             status = SecItemUpdate(query, attributesToUpdate)
         }
         
+        // Check if there was an error during save/update operation
         if status != errSecSuccess || status != 0 {
             print("Error: \(status)")
         }
     }
     
+    // MARK: - Read
+    
+    // Read data from Keychain
     func read(service: String, account: String) -> Data? {
         
         let query = [
@@ -53,6 +64,9 @@ final class KeychainHelper {
         return (result as? Data)
     }
     
+    // MARK: - Delete
+    
+    // Delete data from Keychain
     func delete(service: String, account: String) {
         
         let query = [
@@ -64,11 +78,15 @@ final class KeychainHelper {
         SecItemDelete(query)
     }
     
+    // MARK: - Save
+    
+    // Save Codable item to Keychain
     func save<T>(_ item: T, service: String, account: String) throws where T: Codable {
         let data = try JSONEncoder().encode(item)
         save(data, service: service, account: account)
     }
     
+    // Read Codable item from Keychain
     func read<T>(service: String, account: String, type: T.Type) -> T? where T: Codable {
         
         guard let data = read(service: service, account: account) else {
@@ -84,4 +102,3 @@ final class KeychainHelper {
         }
     }
 }
-

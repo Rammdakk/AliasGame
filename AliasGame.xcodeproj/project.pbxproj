@@ -14,6 +14,7 @@
 		A87C97D62A13EAB700890735 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */; };
 		A87C97D82A140DF800890735 /* RoomsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D72A140DF800890735 /* RoomsScreenViewModel.swift */; };
 		A87C97DA2A140EF500890735 /* RoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C97D92A140EF500890735 /* RoomModel.swift */; };
+		A893C20A2A1E397C003943C7 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893C2092A1E397C003943C7 /* UserDefaultsManager.swift */; };
 		A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB072A0F923000D1621E /* AliasGameApp.swift */; };
 		A8A5BB0A2A0F923000D1621E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB092A0F923000D1621E /* ContentView.swift */; };
 		A8A5BB0C2A0F923200D1621E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8A5BB0B2A0F923200D1621E /* Assets.xcassets */; };
@@ -23,6 +24,8 @@
 		A8A5BB1C2A0FA68300D1621E /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */; };
 		A8A5BB1E2A0FA8A300D1621E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */; };
 		A8A5BB202A0FABB000D1621E /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */; };
+		A8BAAAD72A1F93C500EA7471 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BAAAD62A1F93C500EA7471 /* NetworkError.swift */; };
+		A8BAAAD92A1F971B00EA7471 /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BAAAD82A1F971B00EA7471 /* TeamView.swift */; };
 		A8C9B5BF2A19385B00C999AB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */; };
 		A8D585402A10DBB90078A0D7 /* BearerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */; };
 		A8D585422A10DBC40078A0D7 /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */; };
@@ -44,6 +47,7 @@
 		A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		A87C97D72A140DF800890735 /* RoomsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsScreenViewModel.swift; sourceTree = "<group>"; };
 		A87C97D92A140EF500890735 /* RoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomModel.swift; sourceTree = "<group>"; };
+		A893C2092A1E397C003943C7 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		A8A5BB042A0F923000D1621E /* AliasGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AliasGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8A5BB072A0F923000D1621E /* AliasGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasGameApp.swift; sourceTree = "<group>"; };
 		A8A5BB092A0F923000D1621E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +59,8 @@
 		A8A5BB1B2A0FA68300D1621E /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		A8A5BB1D2A0FA8A300D1621E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A8A5BB1F2A0FABB000D1621E /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		A8BAAAD62A1F93C500EA7471 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		A8BAAAD82A1F971B00EA7471 /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
 		A8C9B5BE2A19385B00C999AB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A8D5853F2A10DBB90078A0D7 /* BearerToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerToken.swift; sourceTree = "<group>"; };
 		A8D585412A10DBC40078A0D7 /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
@@ -103,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				A87C97D02A13D77F00890735 /* NetworkManager.swift */,
+				A8BAAAD62A1F93C500EA7471 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -134,6 +141,14 @@
 				A87C97D52A13EAB700890735 /* MainScreenViewModel.swift */,
 			);
 			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		A893C2082A1E3952003943C7 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				A893C2092A1E397C003943C7 /* UserDefaultsManager.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		A8A5BAFB2A0F923000D1621E = {
@@ -189,6 +204,7 @@
 		A8D5853D2A10DB980078A0D7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A893C2082A1E3952003943C7 /* UserDefaults */,
 				A8D5853E2A10DBA30078A0D7 /* KeyChain */,
 			);
 			path = Data;
@@ -227,6 +243,7 @@
 				E32B2FCF2A16B63B00B163AD /* GameRoomScreen.swift */,
 				A8E31C8B2A1A0EBE00955E63 /* GameRoomScreenViewModel.swift */,
 				A8E31C8F2A1A114700955E63 /* TeamModel.swift */,
+				A8BAAAD82A1F971B00EA7471 /* TeamView.swift */,
 			);
 			path = GameRoom;
 			sourceTree = "<group>";
@@ -320,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8D585402A10DBB90078A0D7 /* BearerToken.swift in Sources */,
+				A8BAAAD72A1F93C500EA7471 /* NetworkError.swift in Sources */,
 				A846B9092A168D49003B8257 /* GameRoom.swift in Sources */,
 				A8D585482A10DF970078A0D7 /* ErrorState.swift in Sources */,
 				A848ADB82A0FAFA500A081D4 /* UrlLinks.swift in Sources */,
@@ -342,7 +360,9 @@
 				A8A5BB082A0F923000D1621E /* AliasGameApp.swift in Sources */,
 				E32B2FD02A16B63B00B163AD /* GameRoomScreen.swift in Sources */,
 				A8A5BB162A0F96B800D1621E /* AuthScreen.swift in Sources */,
+				A893C20A2A1E397C003943C7 /* UserDefaultsManager.swift in Sources */,
 				A87C97DA2A140EF500890735 /* RoomModel.swift in Sources */,
+				A8BAAAD92A1F971B00EA7471 /* TeamView.swift in Sources */,
 				A87C97D82A140DF800890735 /* RoomsScreenViewModel.swift in Sources */,
 				A8C9B5BF2A19385B00C999AB /* SettingsViewModel.swift in Sources */,
 			);

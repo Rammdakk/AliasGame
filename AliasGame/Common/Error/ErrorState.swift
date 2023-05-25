@@ -7,9 +7,9 @@
 
 enum ErrorState {
     
-    case Error(message: String)
+    case Error(message: String) // Represents an error state with an associated error message
     
-    case Succes(message: String)
+    case Succes(message: String) // Represents a success state with an associated success message
     
-    case None
+    case None // Represents no error state
 }

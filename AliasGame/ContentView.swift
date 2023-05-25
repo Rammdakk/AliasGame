@@ -30,10 +30,6 @@ struct ContentView: View {
                 
             case .GameRoom(let room):
                 GameRoomScreen(navigationState: $navigationState.animation(), errorState: $errorState.animation(), room: room)
-//
-//            case .Game:
-//                GameScreen(navigationState: $navigationState)
-
             }
         }.overlay (
             ErrorView(errorState: $errorState)
@@ -52,6 +48,4 @@ enum NavigationState {
     case Rooms
     
     case GameRoom(room: RoomModel)
-//
-//    case GameScreen
 }

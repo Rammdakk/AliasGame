@@ -8,27 +8,32 @@
 import SwiftUI
 import Foundation
 
-
 class RoomsScreenViewModel: ObservableObject {
-
+    
+    // Published properties for updating the view when their values change
     @Published var errorState: ErrorState = .None
     @Published var listOfRooms: [RoomModel] = []
     @Published var navigationState: NavigationState = .Rooms
     
+    // Initializer called when an instance of RoomsScreenViewModel is created
     init() {
+        // Call the getList() method to retrieve the list of rooms
         getList()
     }
     
+    // Method for retrieving the list of rooms from the server
     func getList() {
         // Only for test
-//        return getListMocks()
- 
+        // return getListMocks()
+        
+        // Check if the URL for fetching the list of rooms can be created
         guard let getListUrl = URL(string: UrlLinks.ROOM_LIST) else {
             self.errorState = .Error(message: "URL creation error")
             listOfRooms = []
             return
         }
-
+        
+        // Retrieve the bearer token from the Keychain
         guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
             self.errorState = .Error(message: "Access denied")
             listOfRooms = []
@@ -36,15 +41,18 @@ class RoomsScreenViewModel: ObservableObject {
         }
         
         print("called \(bearerToken)")
+        
+        // Make a network request to get the list of rooms
         NetworkManager().makeRequest(url: getListUrl, method: .get, parameters: nil, bearerToken: bearerToken) { (result: Result<[RoomModel]?, NetworkError>) in
             switch result {
             case .success(let data):
+                // Update the listOfRooms property with the retrieved data (if any)
                 DispatchQueue.main.async {
                     self.listOfRooms = data ?? []
                 }
                 return
             case .failure(let error):
-                // Handle the error
+                // Handle the error by setting the errorState property
                 print(error)
                 DispatchQueue.main.async {
                     self.errorState = .Error(message: "Error: \(error.errorMessage)")
@@ -53,14 +61,17 @@ class RoomsScreenViewModel: ObservableObject {
         }
     }
     
-    // invitationCode = nil, if room is public.
+    // Method for joining a room
+    // invitationCode is nil if the room is public
     func joinRoom(roomID: String, invitationCode: String?) {
- 
+        
+        // Check if the URL for joining a room can be created
         guard let getListUrl = URL(string: UrlLinks.JOIN_ROOM) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
-
+        
+        // Retrieve the bearer token from the Keychain
         guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
             self.errorState = .Error(message: "Access denied")
             listOfRooms = []
@@ -70,24 +81,24 @@ class RoomsScreenViewModel: ObservableObject {
         print("called \(bearerToken)")
         
         var parameters: [String: Any] = ["gameRoomId": roomID]
-
+        
         if let invitationCode = invitationCode {
             parameters["invitationCode"] = invitationCode
         }
         
-//        self.navigationState = .GameRoom(room: RoomModel(isPrivate: false, id: "81F61C99-9178-4BE9-85E5-343381619FB9", admin: "User1", name: "Room1-public", creator: "User1", invitationCode: "aSwTb", points: 10))
-//        return
+        // Make a network request to join the room
         NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<RoomModel?, NetworkError>) in
             switch result {
             case .success(let data):
                 if let roomData = data {
+                    // Update the navigationState property to navigate to the game room
                     DispatchQueue.main.async {
                         self.navigationState = .GameRoom(room: roomData)
                     }
                 }
                 return
             case .failure(let error):
-                // Handle the error
+                // Handle the error by setting the errorState property
                 print(error)
                 DispatchQueue.main.async {
                     self.errorState = .Error(message: "Error: \(error.errorMessage)")
@@ -96,6 +107,7 @@ class RoomsScreenViewModel: ObservableObject {
         }
     }
     
+    // Method for creating a mock list of rooms (for testing purposes)
     func getListMocks() {
         let room1 = RoomModel(isPrivate: false, id: "123", admin: "admin1", name: "Room 1", creator: "creator1", invitationCode: "code1", points: 10)
         let room2 = RoomModel(isPrivate: false, id: "456", admin: "admin2", name: "Room 2", creator: "creator2", invitationCode: nil, points: 10)

@@ -36,8 +36,6 @@ class MainScreenViewModel: ObservableObject {
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
-        
-        let session = URLSession.shared
             
             // Create a data task using the URL
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -64,24 +62,6 @@ class MainScreenViewModel: ObservableObject {
                     }
                 }
             }.resume()
-        
-//        NetworkManager().makeRequest(url: profileUrl, method: .get, parameters: nil, bearerToken: bearerToken) { (result: Result<String?, NetworkError>) in
-//            switch result {
-//            case .success(let data):
-//                if let name = data {
-//                    self.name = name
-//                    print(self.name)
-//                } else {
-//                    self.name = "Error loading name.\nPress to reload"
-//                }
-//            case .failure(let error):
-//                // Handle the error
-//                DispatchQueue.main.async {
-//                    self.name = "22Error loading name.\nPress to reload"
-//                    print(error)
-//                }
-//            }
-//        }
     }
     
     func logout() {

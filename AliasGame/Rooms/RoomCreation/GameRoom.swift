@@ -14,6 +14,7 @@ struct GameRoom: Codable {
     let invitationCode: String
     let id: String
     
+    // Coding keys for decoding and encoding
     enum CodingKeys: String, CodingKey {
         case isPrivate = "isPrivate"
         case admin = "admin"
@@ -24,14 +25,17 @@ struct GameRoom: Codable {
         case id = "id"
     }
     
+    // Admin struct representing the admin of the game room
     struct Admin: Codable {
         let id: String
     }
     
+    // Creator struct representing the creator of the game room
     struct Creator: Codable {
         let id: String
     }
     
+    // Custom initializer for decoding
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         isPrivate = try values.decode(Bool.self, forKey: .isPrivate)
@@ -43,6 +47,7 @@ struct GameRoom: Codable {
         id = try values.decode(String.self, forKey: .id)
     }
     
+    // Custom initializer for creating a game room
     init(isPrivate: Bool, admin: Admin, creator: Creator, pointsPerWord: Int, name: String, invitationCode: String, id: String) {
         self.isPrivate = isPrivate
         self.admin = admin
@@ -53,6 +58,7 @@ struct GameRoom: Codable {
         self.id = id
     }
     
+    // Function to map the game room to a RoomModel object
     func mapToRoomModel() -> RoomModel {
         return RoomModel(isPrivate: isPrivate, id: id, admin: admin.id, name: name, creator: creator.id, invitationCode: invitationCode, points: pointsPerWord)
     }
