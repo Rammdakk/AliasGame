@@ -19,6 +19,7 @@ class UrlLinks {
     static let CREATE_ROOM = "\(BASE_URL)/game-rooms/create"
     static let ROOM_LIST = "\(BASE_URL)/game-rooms/list-all"
     static let JOIN_ROOM = "\(BASE_URL)/game-rooms/join-room"
+    static let GET_ROOM = "\(BASE_URL)/game-rooms/get-room"
     static let EDIT_ROOM = "\(BASE_URL)/game-rooms/change-setting"
     static let LEAVE_ROOM = "\(BASE_URL)/game-rooms/leave-room"
     static let PASS_ADMIN = "\(BASE_URL)/game-rooms/pass-admin-status"

@@ -12,5 +12,5 @@ import Foundation
 final class UserDefaultsKeys {
     static let USER_ID_KEY = "userID"
     static let USER_ROOM_KEY = "userRoom"
-    static let USER_TEAM_KEY = "userTeam"
+    static let ROOM_INVIT_KEY = "invitationKey"
 }

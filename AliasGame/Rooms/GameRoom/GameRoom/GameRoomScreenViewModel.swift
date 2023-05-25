@@ -14,15 +14,18 @@ class GameRoomScreenViewModel: ObservableObject {
     @Published var errorState: ErrorState = .None
     @Published var navigationState: NavigationState
     @Published var teams: [TeamModel] = []
+    @State var showSettings = false
     
     // MARK: - Initialization
     
-    init(navigationState: NavigationState) {
+    init(navigationState: NavigationState, roomAdminID: String) {
         // Initialize the ViewModel with the provided navigation state
-        
+        showSettings = (UserDefaults.standard.string(forKey: UserDefaultsKeys.USER_ID_KEY) == roomAdminID)
         self.errorState = .None
         self.navigationState = navigationState
         self.teams = []
+        print(showSettings)
+        
     }
     
     // MARK: - Functions
@@ -51,6 +54,8 @@ class GameRoomScreenViewModel: ObservableObject {
             case .success:
                 // If the request is successful, update the navigationState to .Main and set the errorState to .Success with a message
                 DispatchQueue.main.async {
+                    UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.USER_ROOM_KEY)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.ROOM_INVIT_KEY)
                     self.navigationState = .Main
                     self.errorState = .Succes(message: "You left room")
                 }

@@ -36,6 +36,7 @@ class AuthViewModel: ObservableObject {
                        print("Value: \(loginResponse.value)")
                        print("ID: \(loginResponse.id)")
                        print("User ID: \(loginResponse.user.id)")
+                       UserDefaults.standard.set(loginResponse.user.id, forKey: UserDefaultsKeys.USER_ID_KEY)
                        try KeychainHelper.shared.save(loginResponse, service: userBearerTokenService, account: account)
                        DispatchQueue.main.async {
                            self.errorState = .Succes(message: self.succesLoginMessage)

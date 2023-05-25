@@ -13,7 +13,63 @@ class MainScreenViewModel: ObservableObject {
 
     @Published var errorState: ErrorState = .None
     @Published var isSuccesLogout = false
+    @Published var isInRoom: RoomModel? = nil
     @Published var name: String = ""
+    
+    init() {
+        self.errorState = .None
+        self.isSuccesLogout = false
+        self.name = ""
+        self.isInRoom = nil
+        let roomID = UserDefaults.standard.string(forKey: UserDefaultsKeys.USER_ROOM_KEY)
+        let invCode = UserDefaults.standard.string(forKey: UserDefaultsKeys.ROOM_INVIT_KEY)
+        print(roomID)
+        if( roomID != nil ) {
+            joinRoom(roomID: roomID!, invitationCode: invCode)
+        }
+    }
+    
+    private func joinRoom(roomID: String, invitationCode: String?) {
+        // Function to join the room
+        
+        guard let getRoomURL = URL(string: UrlLinks.GET_ROOM) else {
+            self.errorState = .Error(message: "URL creation error")
+            return
+        }
+        
+        guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
+            DispatchQueue.main.async {
+                self.name = "Error loading name.\nPress to reload"
+                print(self.name)
+            }
+            return
+        }
+        
+        var parameters: [String: Any] = ["gameRoomId": roomID]
+        
+        if let invitationCode = invitationCode {
+            parameters["invitationCode"] = invitationCode
+        }
+        
+        // Make a network request to join the room
+        NetworkManager().makeRequest(url: getRoomURL, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<RoomModel?, NetworkError>) in
+            switch result {
+            case .success(let data):
+                if let roomData = data {
+                    DispatchQueue.main.async {
+                        self.isInRoom = roomData
+                    }
+                }
+                return
+            case .failure(let error):
+                // Handle the error
+                print(error)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
+            }
+        }
+    }
     
     func profile() {
         guard let profileUrl = URL(string: UrlLinks.PROFILE) else {

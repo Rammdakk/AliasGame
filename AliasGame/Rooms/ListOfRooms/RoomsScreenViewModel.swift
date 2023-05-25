@@ -91,6 +91,8 @@ class RoomsScreenViewModel: ObservableObject {
             switch result {
             case .success(let data):
                 if let roomData = data {
+                    UserDefaults.standard.set(roomData.id, forKey: UserDefaultsKeys.USER_ROOM_KEY)
+                    UserDefaults.standard.set(roomData.invitationCode, forKey: UserDefaultsKeys.ROOM_INVIT_KEY)
                     // Update the navigationState property to navigate to the game room
                     DispatchQueue.main.async {
                         self.navigationState = .GameRoom(room: roomData)
