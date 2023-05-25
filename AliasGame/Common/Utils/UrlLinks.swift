@@ -28,4 +28,5 @@ class UrlLinks {
     static let ADD_TEAM = "\(BASE_URL)/teams/create-team"
     static let TEAMS_LIST = "\(BASE_URL)/teams/list-teams"
     static let JOIN_TEAM = "\(BASE_URL)/teams/join-team"
+    static let LEAVE_TEAM = "\(BASE_URL)/teams/leave-team"
 }

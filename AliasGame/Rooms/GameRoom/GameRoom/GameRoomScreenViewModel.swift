@@ -56,8 +56,50 @@ class GameRoomScreenViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.USER_ROOM_KEY)
                     UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.ROOM_INVIT_KEY)
+                    self.leaveTeam()
                     self.navigationState = .Main
                     self.errorState = .Succes(message: "You left room")
+                }
+                return
+            case .failure(let error):
+                // Handle the error
+                print(error)
+                DispatchQueue.main.async {
+                    self.errorState = .Error(message: "Error: \(error.errorMessage)")
+                }
+            }
+        }
+    }
+    
+    func leaveTeam() {
+        // Method for leaving the game room
+        
+        guard var leaveTeamUrl = URL(string: UrlLinks.LEAVE_TEAM) else {
+            // Check if the URL creation fails, set the errorState to .Error with a message and return
+            self.errorState = .Error(message: "URL creation error")
+            return
+        }
+
+        guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
+            // Check if the bearer token is not available, set the errorState to .Error with a message and return
+            self.errorState = .Error(message: "Access denied")
+            return
+        }
+        
+        guard let teamID = UserDefaults.standard.string(forKey: UserDefaultsKeys.USER_TEAM_KEY) else {
+            return
+        }
+        
+        let queryItems = [URLQueryItem(name: "teamId", value: teamID)]
+        leaveTeamUrl.append(queryItems: queryItems)
+        print(leaveTeamUrl)
+        
+        NetworkManager().makeNonReturningRequest(url: leaveTeamUrl, method: .get, parameters: nil, bearerToken: bearerToken) { result in
+            switch result {
+            case .success:
+                // If the request is successful, update the navigationState to .Main and set the errorState to .Success with a message
+                DispatchQueue.main.async {
+                    UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.USER_TEAM_KEY)
                 }
                 return
             case .failure(let error):
@@ -127,6 +169,7 @@ class GameRoomScreenViewModel: ObservableObject {
         NetworkManager().makeNonReturningRequest(url: joinTeam, method: .post, parameters: parameters, bearerToken: bearerToken) { result in
             switch result {
             case .success:
+                UserDefaults.standard.set(teamID, forKey: UserDefaultsKeys.USER_TEAM_KEY)
                 // If the request is successful, call loadTeams to update the teams array
                 self.loadTeams(roomID: roomID)
                 return
