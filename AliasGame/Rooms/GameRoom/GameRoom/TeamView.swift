@@ -10,6 +10,8 @@ struct Team: View {
     // Represents a view for displaying a team
     
     let model: TeamModel
+    let room: RoomModel
+    var viewModel: GameRoomScreenViewModel
     let joinAction: () -> Void
     @State var isExpanded = false
     
@@ -52,9 +54,24 @@ struct Team: View {
                 } else {
                     // Display each user in the team
                     ForEach(model.users, id: \.self) { teamUser in
-                        Text(teamUser.name)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.black)
+                        HStack{
+                            Text(teamUser.name)
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.black)
+                            Spacer()
+                            if (viewModel.isAdmin && teamUser.id != room.admin) {
+                                // Pass admin button
+                                Text("Pass Admin")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(.blue)
+                                    .onTapGesture {
+                                    viewModel.passAdmin(newAdminID: teamUser.id, roomID:room.id)
+                                    }
+                                    .padding(10)
+                                    .background(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
                     }
                 }
             }

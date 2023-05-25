@@ -186,6 +186,10 @@ class GameRoomScreenViewModel: ObservableObject {
     func passAdmin(newAdminID: String, roomID: String) {
         // Method for passing the admin role to another user
         
+        // This method wasn't ready (server crush) on the server, which was given.
+        self.errorState = .Error(message: "Method has error on server. To avoid crush we stopped request. Please check passAdmin function in GameRoomScreenViewModel")
+        return
+        
         guard let passAdminURL = URL(string: UrlLinks.PASS_ADMIN) else {
             // Check if the URL creation fails, set the errorState to .Error with a message and return
             self.errorState = .Error(message: "URL creation error")
