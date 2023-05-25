@@ -8,37 +8,44 @@
 import SwiftUI
 import Foundation
 
-
 class RoomCreationViewModel: ObservableObject {
-
+    // Represents the view model for the room creation screen
+    
     @Published var errorState: ErrorState = .None
     @Published var navigationState: NavigationState = .RoomCreation
-
     
     func createRoom(name: String, isPrivate: Bool, teams: [String]) {
-        if (name.count < 2) {
+        // Function to create a game room
+        
+        // Check if the room name is too short
+        if name.count < 2 {
             errorState = .Error(message: "Too short room name")
             return
         }
         
-        if (teams.count < 2){
+        // Check if at least 2 teams must be created
+        if teams.count < 2 {
             errorState = .Error(message: "At least 2 teams must be created")
             return
         }
- 
-        guard let getListUrl = URL(string: UrlLinks.CREATE_ROOM) else {
+        
+        // Get the URL for creating the room
+        guard let createRoomURL = URL(string: UrlLinks.CREATE_ROOM) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
-
+        
+        // Get the bearer token from Keychain
         guard let bearerToken = KeychainHelper.shared.read(service: userBearerTokenService, account: account, type: LoginResponse.self)?.value else {
             self.errorState = .Error(message: "Access denied")
             return
         }
         
-        let parameters = ["name": name, "isPrivate": isPrivate] as [String : Any]
+        // Set the parameters for the request
+        let parameters = ["name": name, "isPrivate": isPrivate] as [String: Any]
         
-        NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<GameRoom?, NetworkError>) in
+        // Make a network request to create the room
+        NetworkManager().makeRequest(url: createRoomURL, method: .post, parameters: parameters, bearerToken: bearerToken) { (result: Result<GameRoom?, NetworkError>) in
             switch result {
             case .success(let data):
                 if let room = data {
@@ -57,16 +64,23 @@ class RoomCreationViewModel: ObservableObject {
         }
     }
     
-    private func addTeams(teams:[String], room: GameRoom, accessToken: String){
+    private func addTeams(teams: [String], room: GameRoom, accessToken: String) {
+        // Function to add teams to the room
+        
         let group = DispatchGroup()
-        guard let addTeam = URL(string: UrlLinks.ADD_TEAM) else {
+        
+        // Get the URL for adding a team
+        guard let addTeamURL = URL(string: UrlLinks.ADD_TEAM) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
+        
         teams.forEach { team in
-            let parameters = ["name": team, "gameRoomId": room.id] as [String : Any]
+            let parameters = ["name": team, "gameRoomId": room.id] as [String: Any]
             group.enter()
-            NetworkManager.shared.makeNonReturningRequest(url: addTeam, method: .post, parameters: parameters, bearerToken: accessToken) { result in
+            
+            // Make a network request to add the team
+            NetworkManager.shared.makeNonReturningRequest(url: addTeamURL, method: .post, parameters: parameters, bearerToken: accessToken) { result in
                 switch result {
                 case .success():
                     print("team created: \(team)")
@@ -79,6 +93,7 @@ class RoomCreationViewModel: ObservableObject {
                 group.leave()
             }
         }
+        
         group.notify(queue: .main) {
             print("All tasks have finished!")
             self.joinRoom(roomID: room.id, invitationCode: room.invitationCode, accessToken: accessToken)
@@ -87,20 +102,21 @@ class RoomCreationViewModel: ObservableObject {
     }
     
     private func joinRoom(roomID: String, invitationCode: String?, accessToken: String) {
- 
-        guard let getListUrl = URL(string: UrlLinks.JOIN_ROOM) else {
+        // Function to join the room
+        
+        guard let joinRoomURL = URL(string: UrlLinks.JOIN_ROOM) else {
             self.errorState = .Error(message: "URL creation error")
             return
         }
-
         
         var parameters: [String: Any] = ["gameRoomId": roomID]
-
+        
         if let invitationCode = invitationCode {
             parameters["invitationCode"] = invitationCode
         }
         
-        NetworkManager().makeRequest(url: getListUrl, method: .post, parameters: parameters, bearerToken: accessToken) { (result: Result<RoomModel?, NetworkError>) in
+        // Make a network request to join the room
+        NetworkManager().makeRequest(url: joinRoomURL, method: .post, parameters: parameters, bearerToken: accessToken) { (result: Result<RoomModel?, NetworkError>) in
             switch result {
             case .success(let data):
                 if let roomData = data {
@@ -119,5 +135,4 @@ class RoomCreationViewModel: ObservableObject {
             }
         }
     }
-    
 }

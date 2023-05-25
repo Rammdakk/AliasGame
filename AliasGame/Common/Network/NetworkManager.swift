@@ -11,6 +11,7 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
+    // Make a network request without getting data.
     func makeNonReturningRequest(url: URL, method: HTTPMethod, parameters: [String: Any]?, bearerToken: String, completion: @escaping (Result<Void, NetworkError>) -> Void) {
           var request = URLRequest(url: url)
           request.httpMethod = method.rawValue
@@ -39,13 +40,14 @@ class NetworkManager {
               }
               
               if httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 {
-                  completion(.success(()))
+                  completion(.success(()))  // Request succeeded
               } else {
                   completion(.failure(.invalidResponse(self.getErrorMessage(code: httpResponse.statusCode))))
               }
           }.resume()
       }
     
+    // Make a network request with a data response type
     func makeRequest<T: Decodable>(url: URL, method: HTTPMethod, parameters: [String: Any]?, bearerToken: String, completion: @escaping (Result<T?, NetworkError>) -> Void) {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -61,6 +63,7 @@ class NetworkManager {
                 return
             }
         }
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(.networkError(error.localizedDescription)))
@@ -83,57 +86,37 @@ class NetworkManager {
                         }
                         print(jsonString)
                         let decodedResponse = try decoder.decode(T.self, from: data)
-                        completion(.success(decodedResponse))
+                        completion(.success(decodedResponse)) // Request succeeded with a decoded response
                     } catch {
                         print(error)
-                        completion(.failure(.decodingFailed))
+                        completion(.failure(.decodingFailed)) // Failed to decode the response
                     }
                 } else {
-                    completion(.success(nil))
+                    completion(.success(nil)) // Request succeeded with no data
                 }
             } else {
-                completion(.failure(.invalidResponse(self.getErrorMessage(code: httpResponse.statusCode))))
+                completion(.failure(.invalidResponse(self.getErrorMessage(code: httpResponse.statusCode)))) // Request failed with an error
             }
         }.resume()
     }
     
+    // Get the error message for a given status code
     func getErrorMessage(code: Int) -> String {
         let errorMessage: String
         switch code {
-            case 400:
-                errorMessage = "Bad Request"
-            case 401:
-                errorMessage = "Unauthorized."
-            case 403:
-                errorMessage = "Forbidden. You don't have rights to do it."
-            case 404:
-                errorMessage = "Not Found"
-            case 500:
-                errorMessage = "Internal Server Error"
-            default:
-                errorMessage = "Request failed with status code: \(code)"
+        case 400:
+            errorMessage = "Bad Request"
+        case 401:
+            errorMessage = "Unauthorized."
+        case 403:
+            errorMessage = "Forbidden. You don't have rights to do it."
+        case 404:
+            errorMessage = "Not Found"
+        case 500:
+            errorMessage = "Internal Server Error"
+        default:
+            errorMessage = "Request failed with status code: \(code)"
         }
         return errorMessage
-    }
-}
-
-enum NetworkError: Error {
-    case noData
-    case decodingFailed
-    case invalidRequest(String)
-    case networkError(String)
-    case invalidResponse(String)
-    
-    var errorMessage: String {
-        switch self {
-        case .noData:
-            return "No data received."
-        case .decodingFailed:
-            return "Failed to decode response data."
-        case .invalidRequest(let message), .networkError(let message):
-            return "Error: \(message)"
-        case .invalidResponse(let statusCode):
-            return "Invalid response with status code: \(statusCode)"
-        }
     }
 }

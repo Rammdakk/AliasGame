@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Keys for keyChain to save bearer token.
 let account = "com.rammdakk.AliasGame"
 let userBearerTokenService = "userBearerToken"
 

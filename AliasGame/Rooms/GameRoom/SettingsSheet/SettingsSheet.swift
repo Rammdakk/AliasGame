@@ -1,4 +1,3 @@
-//
 //  SettingsSheet.swift
 //  AliasGame
 //
@@ -8,6 +7,7 @@
 import SwiftUI
 
 struct SettingsSheet: View {
+    // Represents a view for configuring game room settings
     
     @StateObject private var viewModel = SettingsViewModel()
     
@@ -22,46 +22,56 @@ struct SettingsSheet: View {
     var body: some View {
         ZStack {
             Color.red.ignoresSafeArea()
-            VStack{
+            VStack {
                 VStack(spacing: 20) {
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
+                        // Change game name section
                         Text("Change game name")
                             .font(.system(size: 25, weight: .bold))
-                        TextField("Name", text: $name).onAppear(perform: {name = room.name})
+                        TextField("Name", text: $name).onAppear(perform: { name = room.name })
                         
-                    }.padding()
-                        .background(.white)
-                        .cornerRadius(10)
+                    }
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(10)
                     
+                    // Switcher to private room
                     Toggle("Make room private", isOn: $isPrivate.animation())
                         .toggleStyle(SwitchToggleStyle(tint: .red))
                         .font(.system(size: 25, weight: .bold))
                         .padding()
                         .background(.white)
-                        .cornerRadius(10).onAppear(perform: {isPrivate = room.isPrivate})
-                    
-                    VStack(alignment: .leading){
-                        Text("Points per word: \(Int(pointsPerWord))")
-                            .font(.system(size: 25, weight: .bold)).onAppear(perform: {pointsPerWord = Double(room.points ?? 10)})
-                        Slider(value: $pointsPerWord, in: 1...20).tint(.red)
-                    }.padding()
-                        .background(.white)
                         .cornerRadius(10)
+                        .onAppear(perform: { isPrivate = room.isPrivate })
+                    
+                    VStack(alignment: .leading) {
+                        // Points per word section
+                        Text("Points per word: \(Int(pointsPerWord))")
+                            .font(.system(size: 25, weight: .bold))
+                            .onAppear(perform: { pointsPerWord = Double(room.points ?? 10) })
+                        Slider(value: $pointsPerWord, in: 1...20).tint(.red)
+                    }
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(10)
                 }
                 .padding(.horizontal, 10)
                 .padding(.top, 40)
                 
                 Spacer()
-                button(text: "Done", action: {viewModel.createRoom(roomID: room.id, newName: name, isPrivate: isPrivate, points: Int(pointsPerWord))})
-                    .padding(.bottom,20)
+                button(text: "Done", action: { viewModel.createRoom(roomID: room.id, newName: name, isPrivate: isPrivate, points: Int(pointsPerWord)) })
+                    .padding(.bottom, 20)
             }
-        }.onReceive(viewModel.$errorState) { newState in
+        }
+        .onReceive(viewModel.$errorState) { newState in
+            // Handle changes in error state
+            
             if case .Succes(_) = errorState {
                 if case .None = newState {
                     return
                 }
             }
-            withAnimation{
+            withAnimation {
                 if case .Error(_) = newState {
                     errorState = .None
                     errorState = newState
@@ -70,24 +80,30 @@ struct SettingsSheet: View {
                 }
                 errorState = newState
             }
-        }.onReceive(viewModel.$newRoom){newRoom in
-            if (newRoom != nil) {
-                room = newRoom!
+        }
+        .onReceive(viewModel.$newRoom) { newRoom in
+            // Handle changes in the new room state
+            
+            if let newRoom = newRoom {
+                room = newRoom
                 show = false
             }
         }
     }
     
     private func button(text: String, action: @escaping () -> Void) -> some View {
-        return Button(action: action){
+        // Custom button view
+        
+        return Button(action: action) {
             HStack(alignment: .center, spacing: 10) {
                 Text(text)
                     .font(.system(size: 25, weight: .bold))
                 
-            }.frame(width: 150,height: 50)
-                .background(.white)
-                .cornerRadius(20)
-                .foregroundColor(.black)
+            }
+            .frame(width: 150, height: 50)
+            .background(.white)
+            .cornerRadius(20)
+            .foregroundColor(.black)
         }
         .buttonStyle(ScaleButtonStyle())
     }
