@@ -93,7 +93,7 @@ struct GameRoomScreen: View {
                 }
             List {
                 ForEach(teamMocks, id: \.id) { item in
-                    Team(model: item) {
+                    Team(model: item, room: room, viewModel: viewModel) {
                         viewModel.joinTeam(teamID: item.id, roomID: room.id)
                     }
                 }
