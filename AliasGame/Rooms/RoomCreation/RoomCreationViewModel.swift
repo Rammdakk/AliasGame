@@ -121,6 +121,8 @@ class RoomCreationViewModel: ObservableObject {
             case .success(let data):
                 if let roomData = data {
                     DispatchQueue.main.async {
+                        UserDefaults.standard.set(roomData.id, forKey: UserDefaultsKeys.USER_ROOM_KEY)
+                        UserDefaults.standard.set(roomData.invitationCode, forKey: UserDefaultsKeys.ROOM_INVIT_KEY)
                         self.errorState = .Succes(message: "Room \(roomData.name) successfully created")
                         self.navigationState = .GameRoom(room: roomData)
                     }

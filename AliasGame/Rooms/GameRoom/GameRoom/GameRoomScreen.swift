@@ -15,7 +15,7 @@ struct GameRoomScreen: View {
     // MARK: - Initialization
     
     init(navigationState: Binding<NavigationState>, errorState: Binding<ErrorState>, room: RoomModel) {
-        _viewModel = StateObject(wrappedValue: GameRoomScreenViewModel(navigationState: navigationState.wrappedValue))
+        _viewModel = StateObject(wrappedValue: GameRoomScreenViewModel(navigationState: navigationState.wrappedValue, roomAdminID: room.admin))
         self._navigationState = navigationState
         self._errorState = errorState
         self.room = room
@@ -124,10 +124,12 @@ struct GameRoomScreen: View {
                     .padding(.horizontal)
                 Spacer()
                 VStack {
-                    Button(action: { showSettings.toggle() }) {
-                        Image(systemName: "gearshape.fill")
-                            .font(.title)
-                            .foregroundColor(.black)
+                    if (viewModel.showSettings) {
+                        Button(action: { showSettings.toggle() }) {
+                            Image(systemName: "gearshape.fill")
+                                .font(.title)
+                                .foregroundColor(.black)
+                        }
                     }
                     Button(action: { viewModel.leaveRoom(roomID: room.id) }) {
                         Image(systemName: "rectangle.portrait.and.arrow.right")

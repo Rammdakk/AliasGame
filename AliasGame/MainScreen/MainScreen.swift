@@ -33,6 +33,12 @@ struct MainScreen: View {
                     navigationState = .Auth
                 }
             }
+        }.onReceive(viewModel.$isInRoom) { roomModel in
+            withAnimation{
+                if (roomModel != nil) {
+                    navigationState = .GameRoom(room: roomModel!)
+                }
+            }
         }
     }
     
